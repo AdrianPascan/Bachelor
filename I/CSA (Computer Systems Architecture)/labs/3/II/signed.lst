@@ -1,0 +1,43 @@
+     1                                  ;a-(7+x)/(b*b-c/d+2)
+     2                                  ;a-doubleword; b,c,d-byte; x-qword
+     3                                  ;signed
+     4                                  
+     5                                  bits 32
+     6                                  global start
+     7                                  
+     8                                  extern exit
+     9                                  import exit msvcrt.dll
+    10                                  
+    11                                  segment data use32 class=data
+    12 00000000 01000000                    a dd 1
+    13 00000004 0A                          b db 10
+    14 00000005 28                          c db 40
+    15 00000006 32                          d db 50
+    16 00000007 2C01000000000000            x dq 300
+    17                                      
+    18                                  segment code use32 class=code
+    19                                  start:
+    20                                      
+    21 00000000 A0[04000000]                mov AL, [b] ; AL = b
+    22 00000005 F62D[04000000]              imul BYTE [b] ; AX = b*b
+    23 0000000B 6689C2                      mov DX, AX ; DX = b*b
+    24 0000000E A0[05000000]                mov AL, [c] ; AL = c
+    25 00000013 6698                        cbw ; AL -> AX
+    26 00000015 F63D[06000000]              idiv BYTE [d] ; AL = c/d , AH = c%d (keep the integer part only)
+    27 0000001B F6D8                        neg AL ; AL = -c/d
+    28 0000001D 6698                        cbw; AL -> AX
+    29 0000001F 6601D0                      add AX, DX ; AX = b*b-c/d
+    30 00000022 6683D002                    adc AX, 2 ; AX = b*b-c/d+2
+    31 00000026 98                          cwde ; AX -> EAX
+    32 00000027 89C3                        mov EBX, EAX ; EBX = b*b-c/d+2
+    33 00000029 A1[07000000]                mov EAX, dword [x]
+    34 0000002E 8B15[0B000000]              mov EDX, dword [x+4] ; EAX:EDX = x
+    35 00000034 83C007                      add EAX, 7 
+    36 00000037 83D200                      adc EDX, 0 ; EDX:EAX = 7+x
+    37 0000003A F7FB                        idiv EBX ; EAX = (7+x)/(b*b-c/d+2) , EDX = (7+x)%(b*b-c/d+2) (keep the integer part only)
+    38 0000003C 89C3                        mov EBX, EAX ; EBX = (7+x)/(b*b-c/d+2)
+    39 0000003E A1[00000000]                mov EAX, [a] ; EAX = a
+    40 00000043 19D8                        sbb EAX, EBX ; EAX = a-(7+x)/(b*b-c/d+2)
+    41                                      
+    42 00000045 6A00                        push dword 0
+    43 00000047 FF15[00000000]              call [exit]

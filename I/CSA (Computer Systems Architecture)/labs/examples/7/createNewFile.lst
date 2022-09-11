@@ -1,0 +1,55 @@
+     1                                  ; The following code will create an empty file called "ana.txt" in the current folder.
+     2                                  
+     3                                  ; The program will use:
+     4                                  ; - the function fopen() to open/create the file
+     5                                  ; - the function fclose() to close the created file.
+     6                                  
+     7                                  ; Because the program uses the file access mode "w", if a file with the same name already
+     8                                  ; exists, its contents will be discarded and the file will be treated as a new empty file.
+     9                                  ; For details about the file access modes see the section "Theory".
+    10                                  
+    11                                  bits 32
+    12                                  
+    13                                  global start
+    14                                  
+    15                                  ; declare external functions needed by our program
+    16                                  extern exit, fopen, fclose
+    17                                  import exit msvcrt.dll
+    18                                  import fopen msvcrt.dll
+    19                                  import fclose msvcrt.dll
+    20                                  
+    21                                  ; our data is declared here (the variables needed by our program)
+    22                                  segment data use32 class=data
+    23 00000000 616E612E74787400            file_name db "ana.txt", 0   ; filename to be created
+    24 00000008 7700                        access_mode db "w", 0       ; file access mode:
+    25                                                                  ; w - creates an empty file for writing
+    26 0000000A FFFFFFFF                    file_descriptor dd -1       ; variable to hold the file descriptor
+    27                                  
+    28                                  ; our code starts here
+    29                                  segment code use32 class=code
+    30                                      start:
+    31                                          ; call fopen() to create the file
+    32                                          ; fopen() will return a file descriptor in the EAX or 0 in case of error
+    33                                          ; eax = fopen(file_name, access_mode)
+    34 00000000 68[08000000]                    push dword access_mode     
+    35 00000005 68[00000000]                    push dword file_name
+    36 0000000A FF15[00000000]                  call [fopen]
+    37 00000010 83C408                          add esp, 4*2                ; clean-up the stack
+    38                                  
+    39 00000013 A3[0A000000]                    mov [file_descriptor], eax  ; store the file descriptor returned by fopen
+    40                                          
+    41                                          ; check if fopen() has successfully created the file (EAX != 0)
+    42 00000018 83F800                          cmp eax, 0
+    43 0000001B 740F                            je final
+    44                                          
+    45                                          ; call fclose() to close the file
+    46                                          ; fclose(file_descriptor)
+    47 0000001D FF35[0A000000]                  push dword [file_descriptor]
+    48 00000023 FF15[00000000]                  call [fclose]
+    49 00000029 83C404                          add esp, 4
+    50                                          
+    51                                        final:
+    52                                          
+    53                                          ; exit(0)
+    54 0000002C 6A00                            push dword 0      
+    55 0000002E FF15[00000000]                  call [exit]

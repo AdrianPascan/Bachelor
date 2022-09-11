@@ -1,0 +1,6 @@
+Read from file:
+- 1: 'Ana are mere'
+- 2: '123456789A'
+
+Write into another file:
+'A1n2a3... '

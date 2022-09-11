@@ -1,0 +1,21 @@
+     1                                  bits 32
+     2                                  
+     3                                  segment code use32 public code
+     4                                  global maximum
+     5                                  
+     6                                  maximum:
+     7                                      ; find the maximum value of the string
+     8                                  
+     9 00000000 8B74240C                    mov esi, [esp+12]
+    10 00000004 C744240400000080            mov dword[esp+4], -2147483648
+    11                                      
+    12                                      nextElem:
+    13 0000000C AD                              lodsd
+    14 0000000D 39442404                        cmp [esp+4], eax
+    15 00000011 7D04                            jge smallerElem
+    16 00000013 89442404                        mov [esp+4], eax
+    17                                          smallerElem:
+    18 00000017 FF4C2408                        dec dword[esp+8]
+    19 0000001B 75EF                            jnz nextElem
+    20                                  
+    21 0000001D C20C00                      ret 12

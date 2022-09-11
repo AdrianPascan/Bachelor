@@ -1,0 +1,59 @@
+     1                                  ; Being given a string of doublewords, build another string of doublewords which will include only the doublewords from the given string which have an even number of bits with the value 1.
+     2                                  
+     3                                  bits 32
+     4                                  global start
+     5                                  
+     6                                  extern exit
+     7                                  import exit msvcrt.dll
+     8                                  
+     9                                  segment data use32 class=data
+    10 00000000 840000008000000004-         s dd 132, 128, 4, 5, 64, 384, 1023; 00000084h, 00000080h, 00000004h, 00000005h, 00000040h, 00000180h, 000003FFh 
+    10 00000009 000000050000004000-
+    10 00000012 000080010000FF0300-
+    10 0000001B 00                 
+    11                                      len equ ($-s)/4 ; len := 7
+    12 0000001C 00000000<rept>              res times len dd 0 ; final string: 132, 5, 384, 1023
+    13 00000038 00                          cntB1 db 0
+    14 00000039 02                          two db 2
+    15                                  
+    16                                  segment code use32 class=code
+    17                                  start:
+    18 00000000 FC                          cld ; DF := 0
+    19 00000001 BE[00000000]                mov esi, s ; ds:esi - far address of s
+    20 00000006 BF[1C000000]                mov edi, res ; es:edi - far address of res
+    21 0000000B B907000000                  mov ecx, len ; ecx := 7
+    22                                      
+    23                                      repeat0:
+    24                                      
+    25 00000010 AD                              lodsd ; eax - current dword
+    26 00000011 83F800                          cmp eax, 0
+    27 00000014 7430                            jz dword0 ; eax := 0
+    28 00000016 89C2                            mov edx, eax ; edx := eax
+    29 00000018 C605[38000000]00                mov byte[cntB1], 0 ; cntB1 := 0
+    30 0000001F BB20000000                      mov ebx, 32 ; ecx := 32
+    31                                          countBits1
+    31          ******************       warning: label alone on a line without a colon might be in error [-w+orphan-labels]
+    32 00000024 D1D8                                rcr eax, 1 ; last bit of edx will be kept in CF
+    33 00000026 7306                                jnc bit0
+    34 00000028 FE05[38000000]                      inc byte[cntB1] ; count bit 1
+    35                                              bit0
+    35          ******************       warning: label alone on a line without a colon might be in error [-w+orphan-labels]
+    36 0000002E 4B                                  dec ebx ; ebx := ebx - 1 
+    37 0000002F 83FB00                              cmp ebx, 0
+    38 00000032 77F0                                ja countBits1
+    39 00000034 A0[38000000]                    mov al, byte[cntB1] ; al := cntB1
+    40 00000039 B400                            mov ah, 0 ; ah := 0
+    41 0000003B F635[39000000]                  div BYTE[two] ; al := ax / 2, ah := ax % 2
+    42 00000041 80FC00                          cmp ah, 0
+    43 00000044 7503                            jnz notZero
+    44                                          dword0
+    44          ******************       warning: label alone on a line without a colon might be in error [-w+orphan-labels]
+    45 00000046 89D0                            mov eax, edx ; eax := edx
+    46 00000048 AB                              stosd ; store eax
+    47                                          notZero
+    47          ******************       warning: label alone on a line without a colon might be in error [-w+orphan-labels]
+    48                                          
+    49 00000049 E2C5                        loop repeat0
+    50                                      
+    51 0000004B 6A00                        push dword 0
+    52 0000004D FF15[00000000]              call [exit]

@@ -1,0 +1,99 @@
+     1                                  bits 32
+     2                                  global start
+     3                                  
+     4                                  extern exit, scanf, fprintf, fopen, fclose
+     5                                  import exit msvcrt.dll
+     6                                  import fopen msvcrt.dll
+     7                                  import scanf msvcrt.dll
+     8                                  import fprintf msvcrt.dll
+     9                                  import fclose msvcrt.dll
+    10                                  
+    11                                  segment data use class=data
+    12 00000000 00<rept>                    number times 4 db 0
+    13 00000004 256400                      format db "%d", 0
+    14 00000007 616E612E74787400            fileName db "ana.txt", 0
+    15 0000000F FFFFFFFF                    fileDescriptor dd -1
+    16 00000013 7200                        accessMode db "r", 0
+    17 00000015 7700                        writeMode db "w", 0
+    18 00000017 726573756C742E7478-         outputName db "result.txt"
+    18 00000020 74                 
+    19 00000021 FFFFFFFF                    outputDescriptor dd -1
+    20 00000025 2573205C6E256400            printFormat db "%s \n%d", 0
+    21 0000002D 736920342070657265-         dataText db "si 4 pere", 0
+    21 00000036 00                 
+    22 00000037 0A                          lenDataText db $-dataText
+    23 00000038 00<rept>                    text times 100 db 0
+    24                                  
+    25                                  segment code use32 class=code
+    26                                  start:
+    27                                      ;read number
+    28 00000000 68[00000000]                push dword number
+    29 00000005 68[04000000]                push dword format
+    30 0000000A FF15[00000000]              call [scanf]
+    31 00000010 83C408                      add esp, 4*2
+    32                                  
+    33                                      ; fopen(fileDescriptor, "r")
+    34 00000013 68[13000000]                push dword accessMode
+    35 00000018 68[07000000]                push dword fileName
+    36 0000001D FF15[00000000]              call [fopen]
+    37 00000023 83C408                      add esp, 4*2
+    38                                      
+    39 00000026 83F800                      cmp eax, 0
+    40 00000029 0F84A9000000                je cannotOpenFile
+    41 0000002F A3[0F000000]                mov [fileDescriptor], eax
+    42                                      
+    43                                      ; read text from "ana.txt"
+    44 00000034 FF35[0F000000]              push dword [fileDescriptor]
+    45 0000003A 6A64                        push dword 100
+    46 0000003C 6A01                        push dword 1
+    47 0000003E 68[38000000]                push dword text
+    48 00000043 FF15[00000000]              call [fopen]
+    49 00000049 83C410                      add esp, 4*4
+    50                                      
+    51 0000004C BCFFFFFFFF                  mov esp, -1
+    52                                      findEnd:
+    53 00000051 44                              inc esp
+    54 00000052 80BC24[38000000]30              cmp byte[text+esp], '0'
+    55 0000005A 721F                            jb notDigit
+    56 0000005C 80BC24[38000000]39              cmp byte[text+esp], '9'
+    57 00000064 7715                            ja notDigit
+    58 00000066 8A8424[38000000]                mov al, byte[text+esp]
+    59 0000006D 80AC24[38000000]30              sub byte[text+esp], '0'
+    60 00000075 0005[00000000]                  add byte[number], al
+    61                                          notDigit:
+    62 0000007B 80BC24[38000000]00              cmp byte[text+esp], 0
+    63 00000083 75CC                            jne findEnd
+    64                                      
+    65 00000085 B900000000                  mov ecx, 0
+    66                                      addDataText:
+    67                                          mov byte[text+esp], [dataText+ecx]
+    67          ******************       error: invalid combination of opcode and operands
+    68 0000008A 44                              inc esp
+    69 0000008B 41                              inc ecx
+    70 0000008C 81F9[38000000]                  cmp ecx, lenDataText+1
+    71 00000092 75F6                            jne addDataText
+    72                                      
+    73 00000094 FF35[0F000000]              push dword [fileDescriptor]
+    74 0000009A FF15[00000000]              call [fclose]
+    75 000000A0 83C404                      add esp, 4*1
+    76                                      
+    77                                      ; fopen(outputDescriptor, "w")
+    78 000000A3 68[15000000]                push dword writeMode
+    79 000000A8 68[17000000]                push dword outputName
+    80 000000AD FF15[00000000]              call [fopen]
+    81 000000B3 83C408                      add esp, 4*2
+    82                                      
+    83 000000B6 83F800                      cmp eax, 0
+    84 000000B9 741D                        je cannotOpenFile
+    85 000000BB A3[0F000000]                mov [fileDescriptor], eax
+    86                                      
+    87 000000C0 68[00000000]                push dword number
+    88 000000C5 68[38000000]                push dword text
+    89 000000CA 68[25000000]                push dword printFormat
+    90 000000CF FF15[00000000]              call [fprintf]
+    91 000000D5 83C40C                      add esp, 4*3
+    92                                      
+    93                                      cannotOpenFile:
+    94                                      
+    95 000000D8 6A00                        push dword 0
+    96 000000DA FF15[00000000]              call [exit]

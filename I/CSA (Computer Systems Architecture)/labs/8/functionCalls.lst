@@ -1,0 +1,79 @@
+     1                                  ; Two numbers a and b are given. Compute the expression value: (a/b)*k, where k is a constant value defined in data segment. Display the expression value (in base 2).
+     2                                  
+     3                                  bits 32
+     4                                  global start 
+     5                                  
+     6                                  extern exit, scanf, printf
+     7                                  import exit msvcrt.dll
+     8                                  import scanf msvcrt.dll
+     9                                  import printf msvcrt.dll
+    10                                  
+    11                                  segment data use32 class=data
+    12 00000000 00000000                    a dd 0
+    13 00000004 00000000                    b dd 0
+    14 00000008 256400                      format db "%d", 0 ; format for a decimal value
+    15 0000000B 613D2000                    mess1 db "a= ", 0 
+    16 0000000F 623D2000                    mess2 db "b= ", 0
+    17 00000013 02000000                    k dd 2
+    18 00000017 00000000                    res dd 0
+    19 0000001B 6200                        binarySymbol db "b", 0
+    20                                  
+    21                                  segment code use32 class=code
+    22                                      start:
+    23                                          
+    24 00000000 68[0B000000]                    push dword mess1 ; print message: "a= "
+    25 00000005 FF15[00000000]                  call [printf]
+    26 0000000B 83C404                          add esp, 4*1 ; free parameters on stack (1)
+    27 0000000E 68[00000000]                    push dword a ; read a
+    28 00000013 68[08000000]                    push dword format
+    29 00000018 FF15[00000000]                  call [scanf]
+    30 0000001E 83C408                          add esp, 4*2 ; free parameters on stack (2)
+    31                                          
+    32 00000021 68[0F000000]                    push dword mess2 ; print message: "b= "
+    33 00000026 FF15[00000000]                  call [printf]
+    34 0000002C 83C404                          add esp, 4*1 ; free parameters on stack (1)
+    35 0000002F 68[04000000]                    push dword b ; read b
+    36 00000034 68[08000000]                    push dword format
+    37 00000039 FF15[00000000]                  call [scanf]
+    38 0000003F 83C408                          add esp, 4*2 ; free parameters on stack (2)
+    39 00000042 833D[04000000]00                cmp dword[b], 0
+    40 00000049 7445                            jz zeroDivisor
+    41                                          
+    42                                          ; compute (a/b)*k
+    43 0000004B A1[00000000]                    mov eax, [a] ; eax := a
+    44 00000050 99                              cdq ; eax -> edx:eax
+    45 00000051 F73D[04000000]                  idiv dword[b] ; eax := edx:eax / b ; edx := edx:eax % b
+    46                                                        ; use only the quotient, eax, for further computations
+    47 00000057 F72D[13000000]                  imul dword[k] ; edx:eax := eax * k
+    48                                          
+    49                                          ; print the result as a binary value
+    50 0000005D B920000000                      mov ecx, 32 ; ecx := 32
+    51                                          printBit
+    51          ******************       warning: label alone on a line without a colon might be in error [-w+orphan-labels]
+    52 00000062 49                                  dec ecx ; ecx := ecx - 1
+    53 00000063 D1D0                                rcl eax, 1 ; the current byte will have the value of CF
+    54 00000065 60                                  pushad ; save the values stored in eax, ebx, ecx, edx registers onto the stack
+    55 00000066 7304                                jnc bit0
+    56 00000068 6A01                                push dword 1
+    57 0000006A EB02                                jmp bit1
+    58                                              bit0
+    58          ******************       warning: label alone on a line without a colon might be in error [-w+orphan-labels]
+    59 0000006C 6A00                                push dword 0
+    60                                              bit1
+    60          ******************       warning: label alone on a line without a colon might be in error [-w+orphan-labels]
+    61 0000006E 68[08000000]                        push format
+    62 00000073 FF15[00000000]                      call [printf] ; print the current bit
+    63 00000079 83C408                              add esp, 4*2 ; free parameters on stack (2)
+    64 0000007C 61                                  popad ; restore the values of eax, ebx, ecx, edx registers
+    65 0000007D 83F900                              cmp ecx, 0
+    66 00000080 77E0                                ja printBit
+    67                                          
+    68 00000082 68[1B000000]                    push dword binarySymbol ; print "b" for signalising a binary value
+    69 00000087 FF15[00000000]                  call [printf]
+    70 0000008D 83C404                          add esp, 4*1
+    71                                          
+    72                                          zeroDivisor
+    72          ******************       warning: label alone on a line without a colon might be in error [-w+orphan-labels]
+    73                                          
+    74 00000090 6A00                            push dword 0
+    75 00000092 FF15[00000000]                  call [exit]

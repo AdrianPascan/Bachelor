@@ -1,0 +1,80 @@
+     1                                  bits 32
+     2                                  
+     3                                  global start
+     4                                  
+     5                                  extern exit, scanf, printf
+     6                                  import exit msvcrt.dll
+     7                                  import scanf msvcrt.dll
+     8                                  import printf msvcrt.dll
+     9                                  
+    10                                  segment data use32 class=data
+    11 00000000 02                          doi db 2
+    12 00000001 256400                      format db "%d", 0
+    13 00000004 256420256420256400          format0 db "%d %d %d", 0
+    14 0000000D 613D2000                    mess1 db "a= ", 0
+    15 00000011 623D2000                    mess2 db "b= ", 0
+    16 00000015 633D2000                    mess3 db "c= ", 0
+    17 00000019 52657A756C74617475-         printMess db "Rezultatul este: %d", 0
+    17 00000022 6C20657374653A2025-
+    17 0000002B 6400               
+    18 0000002D 00000000                    a dd 0
+    19 00000031 0000<rept>                  b times 2 dw 0
+    20 00000035 00<rept>                    c times 4 db 0
+    21                                      
+    22                                  segment code use32 class=code
+    23                                  start:
+    24                                      
+    25 00000000 68[0D000000]                push dword mess1
+    26 00000005 FF15[00000000]              call [printf]
+    27 0000000B 83C404                      add esp, 4*1
+    28 0000000E 68[2D000000]                push dword a
+    29 00000013 68[01000000]                push dword format
+    30 00000018 FF15[00000000]              call [scanf]
+    31 0000001E 83C408                      add esp, 4*2
+    32                                      
+    33 00000021 68[11000000]                push dword mess2
+    34 00000026 FF15[00000000]              call [printf]
+    35 0000002C 83C404                      add esp, 4*1
+    36 0000002F 68[31000000]                push dword b
+    37 00000034 68[01000000]                push dword format
+    38 00000039 FF15[00000000]              call [scanf]
+    39 0000003F 83C408                      add esp, 4*2
+    40                                      
+    41 00000042 68[15000000]                push dword mess3
+    42 00000047 FF15[00000000]              call [printf]
+    43 0000004D 83C404                      add esp, 4*1
+    44 00000050 68[35000000]                push dword c
+    45 00000055 68[01000000]                push dword format
+    46 0000005A FF15[00000000]              call [scanf]
+    47 00000060 83C408                      add esp, 4*2
+    48                                      
+    49 00000063 68[35000000]                push dword c
+    50 00000068 68[31000000]                push dword b
+    51 0000006D 68[2D000000]                push dword a
+    52 00000072 68[04000000]                push dword format0
+    53 00000077 FF15[00000000]              call [printf]
+    54 0000007D 83C410                      add esp, 4*4
+    55                                      
+    56 00000080 66A1[2D000000]              mov ax, word[a]
+    57 00000086 668B15[2F000000]            mov dx, word[a+2]
+    58 0000008D 66F73D[31000000]            idiv word[b]
+    59 00000094 98                          cwde
+    60 00000095 89C2                        mov edx, eax
+    61 00000097 A0[35000000]                mov al, [c]
+    62 0000009C 6698                        cbw
+    63 0000009E 98                          cwde
+    64 0000009F 01C8                        add eax, ecx
+    65 000000A1 89C2                        mov edx, eax
+    66 000000A3 C1CA10                      ror edx, 16
+    67 000000A6 8A0D[00000000]              mov cl, [doi]
+    68 000000AC B500                        mov ch, 0
+    69 000000AE 66F7F9                      idiv cx
+    70                                      
+    71 000000B1 98                          cwde
+    72 000000B2 50                          push eax
+    73 000000B3 68[19000000]                push printMess
+    74 000000B8 FF15[00000000]              call [printf]
+    75 000000BE 83C408                      add esp, 4*2
+    76                                      
+    77 000000C1 6A00                        push dword 0
+    78 000000C3 FF15[00000000]              call [exit]

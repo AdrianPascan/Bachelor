@@ -1,0 +1,6 @@
+a = dword
+b = word
+c = byte
+
+Read a, b, c from keyboard.
+Print "Rezultatul este: <<(a/b+c)/2>>" 

@@ -1,0 +1,44 @@
+     1                                  ; Given the doubleword M, compute the doubleword MNew as follows:
+     2                                  ; - the bits 0-3 a of MNew are the same as the bits 5-8 a of M
+     3                                  ; - the bits 4-7 a of MNew have the value 1
+     4                                  ; - the bits 27-31 a of MNew have the value 0
+     5                                  ; - the bits 8-26 of MNew are the same as the bits 8-26 a of M
+     6                                  
+     7                                  bits 32
+     8                                  global start
+     9                                  
+    10                                  extern exit
+    11                                  import exit msvcrt.dll
+    12                                  
+    13                                  segment data use32 class=data
+    14 00000000 AAAAAAAA                    M dd 10101010101010101010101010101010b
+    15 00000004 00000000                    Mnew dd 0
+    16                                      
+    17                                  segment code use32 class=code
+    18                                  start:
+    19                                      ; keep the result in ebx register
+    20 00000000 BB00000000                  mov ebx, 0 ; ebx := 00000000h
+    21                                      
+    22                                      ; the bits 0-3 a of ebx are the same as the bits 5-8 a of M
+    23 00000005 A1[00000000]                mov eax, [M] ; eax := AAAAAAAAh
+    24 0000000A 25E0010000                  and eax, 0000000000000000000000111100000b ; eax := 000000A0h
+    25 0000000F B105                        mov cl, 5 ; cl := 05h
+    26 00000011 D3C8                        ror eax, cl ; eax := 00000005h
+    27 00000013 09C3                        or ebx, eax ; ebx := 00000005h
+    28                                      
+    29                                      ; the bits 4-7 a of ebx have the value 1
+    30 00000015 81CBF0000000                or ebx, 00000000000000000000000011110000b ; ebx := 000000F5h
+    31                                      
+    32                                      ;the bits 27-31 a of ebx have the value 0
+    33 0000001B 81E3FFFFFF07                and ebx, 00000111111111111111111111111111b ; ebx := 000000F5h
+    34                                      
+    35                                      ; the bits 8-26 of ebx are the same as the bits 8-26 a of M
+    36 00000021 A1[00000000]                mov eax, [M] ; eax := AAAAAAAAh
+    37 00000026 2500FFFF07                  and eax, 00000111111111111111111100000000b ; eax := 02AAAA00h
+    38 0000002B 09C3                        or ebx, eax ; ebx := 02AAAA00h
+    39                                      
+    40                                      ; move the result to Mnew
+    41 0000002D 891D[04000000]              mov [Mnew], ebx ; Mnew := 02AAAA00h
+    42                                      
+    43 00000033 6A00                        push dword 0
+    44 00000035 FF15[00000000]              call [exit]

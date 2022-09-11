@@ -1,0 +1,12 @@
+     1                                  bits 32                         
+     2                                  segment code use32 public code
+     3                                  global factorial
+     4                                  
+     5                                  factorial:
+     6 00000000 B801000000              	mov eax, 1
+     7 00000005 8B4C2404                	mov ecx, [esp + 4]
+     8                                  	
+     9                                  	repeat: 
+    10 00000009 F7E1                    		mul ecx
+    11 0000000B E2FC                    	loop repeat
+    12 0000000D C20400                  	ret 4 ; in this case, 4 represents the number of bytes that need to be cleared from the stack (the parameter of the function)

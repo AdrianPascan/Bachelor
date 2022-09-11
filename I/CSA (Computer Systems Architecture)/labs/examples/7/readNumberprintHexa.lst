@@ -1,0 +1,43 @@
+     1                                  ; The code below will print message ”n=”, then will read from keyboard the value of perameter n.
+     2                                  bits 32
+     3                                  
+     4                                  global start        
+     5                                  
+     6                                  ; declare extern functions used by the programme
+     7                                  extern exit, printf, scanf ; add printf and scanf as extern functions            
+     8                                  import exit msvcrt.dll    
+     9                                  import printf msvcrt.dll    ; tell the assembler that function printf is found in msvcrt.dll library
+    10                                  import scanf msvcrt.dll     ; similar for scanf
+    11                                                            
+    12                                  segment data use32 class=data
+    13 00000000 00000000                	n dd  0       ; in this variable we'll store the value read from the keyboard
+    14                                      ; char strings are of type byte
+    15 00000004 6E3D00                  	message  db "n=", 0  ; char strings for C functions must terminate with 0(value, not char)
+    16 00000007 256400                  	format  db "%d", 0  ; %d <=> a decimal number (base 10)
+    17 0000000A 257800                      format1 db "%x", 0 
+    18                                      
+    19                                  segment code use32 class=code
+    20                                      start:
+    21                                         
+    22                                          ; will call printf(message) => will print "n="
+    23                                          ; place parameters on stack
+    24 00000000 68[04000000]                    push dword message ; ! on the stack is placed the address of the string, not its value
+    25 00000005 FF15[00000000]                  call [printf]      ; call function printf for printing
+    26 0000000B 83C404                          add esp, 4*1       ; free parameters on the stack; 4 = size of dword; 1 = number of parameters
+    27                                                                                     
+    28                                          ; will call scanf(format, n) => will read a number in variable n
+    29                                          ; place parameters on stack from right to left
+    30 0000000E 68[00000000]                    push dword n       ; ! addressa of n, not value
+    31 00000013 68[07000000]                     push dword format
+    32 00000018 FF15[00000000]                  call [scanf]       ; call function scanf for reading
+    33 0000001E 83C408                          add esp, 4 * 2     ; free parameters on the stack
+    34                                                             ; 4 = size of a dword; 2 = no of perameters
+    35                                          
+    36 00000021 FF35[00000000]                  push dword [n]
+    37 00000027 68[0A000000]                    push dword format1
+    38 0000002C FF15[00000000]                  call [printf]
+    39 00000032 83C408                          add esp, 4*2
+    40                                          
+    41                                          ; exit(0)
+    42 00000035 6A00                            push dword 0      ; place on stack parameter for exit
+    43 00000037 FF15[00000000]                  call [exit]       ; call exit to terminate the program
