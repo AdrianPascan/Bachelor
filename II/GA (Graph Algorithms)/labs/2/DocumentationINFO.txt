@@ -1,0 +1,4 @@
+written by hand
+1 paper:
+- 1 side: code (at most 2 functions)
+- 1 side: manually executed algorithm
