@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<!--
+  Write a javascript which implements a drop-down menu with 5 principal submenus and between 3 and 5 commponents for each submenu.
+-->
+
+<html>
+
+  <head>
+
+    <title>Lab. 4: JavaScript</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <style>
+
+      .navbar {
+        overflow: hidden;
+        background-color: #333;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .navbar a {
+        float: left;
+        font-size: 16px;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+
+      .dropdown {
+        float: left;
+        overflow: hidden;
+      }
+
+      .dropdown .dropbtn {
+        cursor: pointer;
+        font-size: 16px;  
+        border: none;
+        outline: none;
+        color: white;
+        padding: 14px 16px;
+        background-color: inherit;
+        font-family: inherit;
+        margin: 0;
+      }
+
+      .navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
+        background-color: red;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+
+      .dropdown-content a {
+        float: none;
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+      }
+
+      .dropdown-content a:hover {
+        background-color: #ddd;
+      }
+
+      .show {
+        display: block;
+      }
+
+    </style>
+
+
+    <script defer>
+      'use strict'
+
+      function displayMenu(menuNo) {
+        var dropMenus = document.getElementsByName('cnt');
+        for (var dropMenu of dropMenus) {
+          if (dropMenu.classList.contains('show')) {
+            dropMenu.classList.remove('show');
+          }
+        }
+
+        document.getElementById('cnt' + menuNo).classList.toggle("show");
+      }
+
+      window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+          var dropMenus = document.getElementsByName('cnt');
+          for (var dropMenu of dropMenus) {
+            if (dropMenu.classList.contains('show')) {
+              dropMenu.classList.remove('show');
+            }
+          }
+        }
+      }
+
+    </script>
+
+  </head>
+
+
+  <body>
+    <div class="navbar">
+
+      <div class="dropdown">
+
+        <button name="btn" id="btn1" class="dropbtn" onclick="displayMenu(1)">
+          File
+          <i class="fa fa-caret-down"></i>
+        </button>
+
+        <div name="cnt" id="cnt1" class="dropdown-content">
+          <a href="#">New File</a>
+          <a href="#">New Window</a>
+          <hr>
+          <a href="#">Open File...</a>
+          <a href="#">Open Folder...</a>
+          <a href="#">Open Workspace...</a>
+        </div>
+
+      </div> 
+
+
+      <div class="dropdown">
+
+        <button name="btn" id="btn2" class="dropbtn" onclick="displayMenu(2)">
+          Edit
+          <i class="fa fa-caret-down"></i>
+        </button>
+        
+        <div name="cnt" id="cnt2" class="dropdown-content">
+          <a href="#">Undo</a>
+          <a href="#">Redo</a>
+          <hr>
+          <a href="#">Cut</a>
+          <a href="#">Copy</a>
+          <a href="#">Paste</a>
+        </div>
+
+      </div> 
+
+
+      <div class="dropdown">
+
+        <button name="btn" id="btn3" class="dropbtn" onclick="displayMenu(3)">
+          Selection
+          <i class="fa fa-caret-down"></i>
+        </button>
+
+        <div name="cnt" id="cnt3" class="dropdown-content">
+          <a href="#">Select All</a>
+          <a href="#">Expand Selection</a>
+          <a href="#">Shrink Selection</a>
+        </div>
+
+      </div> 
+
+
+      <div class="dropdown">
+
+        <button name="btn" id="btn4" class="dropbtn" onclick="displayMenu(4)">
+          Go
+          <i class="fa fa-caret-down"></i>
+        </button>
+
+        <div name="cnt" id="cnt4" class="dropdown-content">
+          <a href="#">Back</a>
+          <a href="#">Forward</a>
+          <a href="#">Last Edition Location</a>
+        </div>
+
+      </div> 
+
+
+      <div class="dropdown">
+
+        <button name="btn" id="btn5" class="dropbtn" onclick="displayMenu(5)">
+          Run
+          <i class="fa fa-caret-down"></i>
+        </button>
+
+        <div name="cnt" id="cnt5" class="dropdown-content">
+          <a href="#">Start Debugging</a>
+          <a href="#">Run Without Debugging</a>
+          <a href="#">Stop Debugging</a>
+          <a href="#">Restart Debugging</a>
+        </div>
+
+      </div> 
+
+    </div>
+
+  </body>
+
+</html>

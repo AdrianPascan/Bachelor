@@ -1,0 +1,284 @@
+﻿@{
+    ViewBag.Title = "ExamModel";
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Exam Model</title>
+
+        <link href="~/Styles/general.css" rel="stylesheet" type="text/css" />"
+
+        <script src="~/Scripts/jquery-3.5.0.min.js"></script>
+    </head>
+
+    <body>
+        <header>
+            <div>
+                <h1>Exam model</h1>
+            </div>
+        </header>
+
+        <hr>
+
+        <main>
+            <section id="login">
+                <form>
+                    Username:
+                    <input id="name" type="text">
+                    <br />
+
+                    Password:
+                    <input id="password" type="password">
+                    <br />
+                    <br />
+
+                    <input id="loginBtn" type="button" value="Log In" onclick="login()">
+                    <br />
+                </form>
+            </section>
+
+            <section id="app">
+                <div>
+                    <h3>USER</h3>
+                    <div id="username"></div>
+                    <br />
+
+                    <input id="logoutBtn" type="button" value="Log Out" onclick="logout()">
+                    <br />
+                </div>
+
+                <hr />
+
+                <div>
+                    <h3>ASSETS</h3>
+                    <br />
+
+                    <div id="assets">
+                    </div>
+                    
+                    <br>
+                    <br>
+
+                    <div>
+                        <h4>Add one asset / multiple assets:</h4>
+
+                        <form>
+                            Name:
+                            <input type="text" id="assetName">
+                            <br/>
+
+                            Description:
+                            <input type="text" id="assetDescription">
+                            <br/>
+
+                            Value:
+                            <input type="text" id="assetValue">
+                            <br/>
+
+                            <input type="button" id="addAssetBtn" onclick="addUserAsset()" value="Add">
+                        </form>
+
+						<br>
+						<br>
+
+                        <div id="addedAssetsSection">
+                            Your addded assets: 
+
+							<br>
+
+                            <div id="addedAssets">
+                            </div>
+
+							<br>
+
+                            <button onclick="saveAddedUserAssets()">
+                                Save assets
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <script defer>
+            var user = null;
+            var assets = null;
+            var addedAssets = null;
+
+
+            $(document).ready(function () {
+                $("#app").hide();
+            });
+
+
+            function login() {
+                name = $("#name").val();
+                password = $("#password").val();
+
+                if (!name) {
+                    alert("Username missing..");
+                    return;
+                }
+                if (!password) {
+                    alert("Password missing..");
+                    return;
+                }
+
+                $.post("/Main/AuthenticateUser",
+                    {
+                        name: name,
+                        password: password
+                    },
+                    function (result, status) {
+                        id = result;
+                        if (id == -1) {
+                            alert("Invalid username and password combination!");
+                            return;
+                        }
+
+                        user = {"id": id, 
+                                "name": name,
+                                "password": null};
+                        $("#username").html(name);
+
+                        $("#login").hide();
+                        $("#app").show();
+
+                        getUserAssets();
+                        showUserAssets();
+                        showAddedUserAssets();
+
+                        console.log("userId", user["id"]);
+                    }
+                );
+            }
+
+            function logout() {
+                user = null;
+                $("#name").val("");
+                $("#password").val("");
+
+                $("#login").show();
+                $("#app").hide();
+            }
+
+
+            function getUserAssets() {
+                $.ajax({
+                    type: "POST",
+                    url: "/Main/GetUserAssets",
+                    data: {userid: user["id"]},
+                    async: false,
+                    success: function (result) {
+                        assets = result;
+                        console.log("assets=", assets);
+                    }
+                });
+            };
+
+            function showUserAssets() {
+                if (assets == null || assets.length == 0) {
+                    $("#assets").html("<i>You have no assets stored...</i>");
+                } 
+                else {
+                    var table = "<table>" + 
+                                "<thead>" +
+                                "<th>Name</th>" +
+                                "<th>Description</th>" +
+                                "<th>Value</th>" +
+                                "</thead>";
+                    for (var asset of assets) {
+                        var row = '<tr' + (asset["value"] > 10 ? ' style="background-color: red;">' : '>') +
+                                  '<td>' + asset["name"] + '</td>' +
+                                  '<td>' + asset["description"] + '</td>' +
+                                  '<td>' + asset["value"] + '</td>' +
+                                  '</tr>';
+                        table += row;
+                    }
+                    table += "</table>";
+
+                    $("#assets").html(table);
+                }
+            };
+
+            function addUserAsset() {
+                let name = $("#assetName").val();
+                let description = $("#assetDescription").val();
+                let value = parseInt( $("#assetValue").val() );
+
+                if (isNaN(value)) {
+                    alert("Value must be an integer...");
+                    return;
+                }
+
+                asset = {"name": name,
+                         "description" :description,
+                         "value": value};
+
+                if (addedAssets == null) {
+                    addedAssets = [];
+                }
+                addedAssets.push(asset);
+
+                showAddedUserAssets();
+            }
+
+            function saveAddedUserAssets() {
+                console.log("Save: addedAssets=", addedAssets);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Main/SaveUserAssets",
+                    data: {userid: user["id"], assets: addedAssets},
+                    async: false,
+                    success: function (result) {
+                        if (result) {
+                            console.log("Assets saved!");
+                            alert("Assets were saved!");
+                        }
+                        else {
+                            console.log("Assets were not saved due to error!");
+                        }
+                    }
+                });
+
+                addedAssets = null;
+                showAddedUserAssets();
+
+                getUserAssets();
+                showUserAssets();
+            }
+
+            function showAddedUserAssets() {
+                if (addedAssets == null) {
+                    $("#addedAssetsSection").hide();
+                }
+                else {
+                    var table = "<table>" + 
+                                "<thead>" +
+                                "<th>Name</th>" +
+                                "<th>Description</th>" +
+                                "<th>Value</th>" +
+                                "</thead>";
+                    for (var asset of addedAssets) {
+                        var row = '<tr>' +
+                                  '<td>' + asset["name"] + '</td>' +
+                                  '<td>' + asset["description"] + '</td>' +
+                                  '<td>' + asset["value"] + '</td>' +
+                                  '</tr>';
+                        table += row;
+                    }
+                    table += "</table>";
+
+                    $("#addedAssets").html(table);
+                    $("#addedAssetsSection").show();
+
+                    console.log("addedAssets=", addedAssets);
+                }
+            }
+        </script>
+    </body>
+</html>

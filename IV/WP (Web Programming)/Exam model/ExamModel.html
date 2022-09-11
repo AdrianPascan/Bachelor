@@ -1,0 +1,205 @@
+@{
+    ViewBag.Title = "Exam";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Exam</title>
+
+    <link href="~/Styles/general.css" rel="stylesheet" type="text/css" />"
+
+    <script src="~/Scripts/jquery-3.5.0.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1>Exam</h1>
+        </div>
+    </header>
+
+    <hr>
+
+    <main>
+        <section id="login">
+            <form>
+                <label>Person name: </label>
+                <input id="name" type="text">
+                <br />
+
+                <input id="loginBtn" type="button" value="Log In" onclick="login()">
+                <br />
+            </form>
+        </section>
+
+        <section id="app">
+            <div>
+                <h3>USER</h3>
+                <div id="username"></div>
+                <br />
+
+                <input id="logoutBtn" type="button" value="Log Out" onclick="logout()">
+                <br />
+            </div>
+
+            <hr />
+
+            <div>
+                <h3>Channels</h3>
+                <br />
+
+                <div id="channels">
+                </div>
+            </div>
+
+            <hr />
+
+            <div>
+                <h3>Subscriptions</h3>
+                <br />
+
+                <div id="subscriptions">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script defer>
+        var person = null;
+        var channels = null;
+        var subscriptions = null;
+
+        $(document).ready(function () {
+            $("#app").hide();
+        });
+
+
+        function login() {
+            name = $("#name").val();
+
+            if (!name) {
+                alert("Person name missing..");
+                return;
+            }
+
+            $.post("/Main/AuthenticatePerson",
+                {
+                    name: name,
+                },
+                function (result, status) {
+                    id = result;
+                    if (id == -1) {
+                        alert("Invalid username and password combination!");
+                        return;
+                    }
+
+                    person = {
+                        "id": id,
+                        "name": name,
+                    };
+                    $("#username").html(name);
+
+                    $("#login").hide();
+                    $("#app").show();
+
+                    getChannels();
+                    getSubscriptions();
+                }
+            );
+        }
+
+        function logout() {
+            person = null;
+            $("#name").val("");
+
+            $("#login").show();
+            $("#app").hide();
+        }
+
+
+        function getChannels() {
+            $.ajax({
+                type: "POST",
+                url: "/Main/GetPersonChannels",
+                data: { ownerid: person["id"] },
+                // async: false,
+                success: function (result) {
+                    channels = result;
+                    console.log("channels=", channels);
+
+                    showChannels();
+                }
+            });
+        };
+
+        function showChannels() {
+            if (channels == null || channels.length == 0) {
+                $("#channels").html("<i>You have no channels...</i>");
+            }
+            else {
+                var table = "<table>" +
+                    "<thead>" +
+                    "<th>Name</th>" +
+                    "<th>Description</th>" +
+                    "<th>Subscribers</th>" +
+                    "</thead>";
+                for (var channel of channels) {
+                    var row = '<tr>' +
+                        '<td>' + channel["name"] + '</td>' +
+                        '<td>' + channel["description"] + '</td>' +
+                        '<td>' + channel["subscribers"] + '</td>' +
+                        '</tr>';
+                    table += row;
+                }
+                table += "</table>";
+
+                $("#channels").html(table);
+            }
+        };
+
+        function getSubscriptions() {
+            $.ajax({
+                type: "POST",
+                url: "/Main/GetPersonSubscriptions",
+                data: {
+                    id: person["id"],
+                    name: person["name"]
+                },
+                // async: false,
+                success: function (result) {
+                    subscriptions = result;
+                    console.log("subscriptions=", subscriptions);
+
+                    showSubscriptions();
+                }
+            });
+        };
+
+        function showSubscriptions() {
+            if (subscriptions == null || subscriptions.length == 0) {
+                $("#subscriptions").html("<i>You have no subscriptions...</i>");
+            }
+            else {
+                var table = "<table>" +
+                    "<thead>" +
+                    "<th>Name</th>" +
+                    "<th>Description</th>" +
+                    "</thead>";
+                for (var channel of subscriptions) {
+                    var row = '<tr>' +
+                        '<td>' + channel["name"] + '</td>' +
+                        '<td>' + channel["description"] + '</td>' +
+                        '</tr>';
+                    table += row;
+                }
+                table += "</table>";
+
+                $("#subscriptions").html(table);
+            }
+        };
+    </script>
+</body>
+</html>

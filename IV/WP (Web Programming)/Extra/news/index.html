@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MyNews.com</title>
+
+	<script src="jquery-3.5.0.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="general.css">
+</head>
+<body>
+	<header>
+		<h1>Welcome to MyNews.com</h1>
+	</header>
+
+	<hr>
+
+	<section id="loginSection">
+		<h3>Producer?</h3>
+
+		<form>
+			<label>Name: </label>
+			<input type="text" id="producerName">
+			<br>
+
+			<label>Password: </label>
+			<input type="password" id="producerPassword">
+			<br>
+
+			<br>
+
+			<input type="button" value="Log In" onclick="login()">
+		</form>
+	</section>
+
+	<section id="producerSection">
+		<div id="producerMessage">
+		</div>
+
+		<input type="button" value="Log Out" onclick="logout()">
+
+		<br><br><br>
+
+		<div>
+			<b>Add / update news:</b>
+			<br><br>
+
+			<label>Title: </label>
+			<input type="text" id="newsTitle">
+			<br>
+
+			<label>Text: </label>
+			<br>
+			<textarea id="newsText" rows="5" cols="50"></textarea>
+			<br>
+
+			<label>Date: </label>
+			<input type="date" id="newsDate">
+			<br>
+
+			<label>Cathegory: </label>
+			<input type="text" id="newsCathegory">
+			<br>
+
+			<br>
+
+			<i>Update-only:    </i>
+
+			<label>Producer: </label>
+			<select id="newsProducer">
+			</select>
+			<br>
+
+			<br><br>
+
+			<input type="button" value="Add" onclick="addNews()">
+			<input type="button" value="Update" onclick="updateNews()">
+		</div>
+	</section>
+
+	<hr>
+
+	<main>
+		<h3>NEWS:</h3>
+
+		<br>
+
+		<div id="prevFilters">
+		</div>
+
+		<br>
+
+		<form>
+			<label>Earliest date: </label>
+			<input type="date" id="earliestDate">
+			<br>
+
+			<label>Latest date: </label>
+			<input type="date" id="latestDate">
+			<br>
+
+			<label>Cathegory: </label>
+			<input type="text" id="cathegory">
+
+			<br><br>
+
+			<input type="button" onclick="getNews()" value="Filter">
+		</form>
+
+		<br>
+		<br>
+
+		<section id="newsSection">
+		</section>
+	</main>
+
+	<script defer>
+		var news = null;
+		var selectedNewsId = null;
+
+		var countFilters = 0;
+		var prevEarliestDate = "";
+		var prevLatestDate = "";
+		var prevCathegory = "";
+
+		var producer = null;
+		var producers = null;
+
+		$(document).ready( function() {
+			$("#producerSection").hide();
+
+			getNews(false, false);
+
+			$(document).on("click", "div.newsItem", function() {
+				if (producer != null) {
+					if (selectedNewsId != null) {
+						$("div.newsSelectedItem").removeClass("newsSelectedItem");
+					}
+					$(this).addClass("newsSelectedItem");
+
+					selectNews( parseInt($(this).attr("id")) );
+				}
+			});
+		});
+
+
+		function getNews(withCount = true, withAlert = true) {
+			let earliestDate = $("#earliestDate").val();
+			let latestDate = $("#latestDate").val();
+			let cathegory = $("#cathegory").val();
+
+			if (earliestDate && latestDate && earliestDate.localeCompare(latestDate) == 1) {
+				alert("Earliest date must be before latest date...");
+				return;
+			}
+
+			if (withCount) {
+				countFilters++; 
+
+				if (countFilters > 1) {
+					$("#prevFilters").html("<i>Previous filters: earliest date = " + (prevEarliestDate ? prevEarliestDate : "none") + "; " +
+															    "latest date = " + (prevLatestDate ? prevLatestDate : "none") + "; " +
+															    "cathegory = " + (prevCathegory ? "'" + prevCathegory + "'" : "none") + " ." +
+										   "</i>");
+				}
+
+				if (countFilters >= 1) {
+					prevEarliestDate = earliestDate;
+					prevLatestDate = latestDate;
+					prevCathegory = cathegory;
+				}
+			}
+
+			selectedNewsId = null;
+
+			$.ajax({type: "POST",
+				url: "./getNews.php",
+				data: {
+					earliestDate: earliestDate,
+					latestDate: latestDate,
+					cathegory: cathegory
+				},
+				async: false,
+				success: function(result) {
+					news = $.parseJSON(result);
+					console.log("news=", news);
+
+					if (withAlert){
+						alert("News was retrieved.");
+					}
+
+					showNews();
+				}
+			});
+		};
+
+		function showNews() {
+			if (news == null || news.length == 0) {
+				$("#newsSection").html("<i>There are no news to be shown...</i>");
+			}
+			else {
+				let text = "";
+				for (let id in news) {
+					let item = news[id];
+					text += "<div class=\"newsItem\" style=\"border: 1px solid black;\" id=\"" + item["id"] + "\">" +
+							"<b>" + item["title"] + "</b>" +
+							"<br><br>" +
+							item["text"] + 
+							"<br><br><br>" + 
+							"<i> Posted on " + item["date"] + " by " + item["producer"] + " in cathegory '" + item["cathegory"] + "'.</i>" +
+							"</div>" + 
+							"<br>"; 
+				}
+				$("#newsSection").html(text);
+			};
+		};
+
+		function selectNews(newsId) {
+			console.log("SELECT");
+			selectedNewsId = newsId;	
+			console.log("selectNews: newsId=", newsId);
+
+			let item = news[newsId];
+
+			$("#newsTitle").val( item["title"] );
+			$("#newsText").val( item["text"] );
+			$("#newsProducer").val( producers[item["producerid"]]["id"] );
+			$("#newsDate").val( item["date"] );
+			$("#newsCathegory").val( cathegory = item["cathegory"] );
+		};
+
+		function addNews() {
+			let title = $("#newsTitle").val();
+			let text = $("#newsText").val();
+			let date = $("#newsDate").val();
+			let cathegory = $("#newsCathegory").val();
+			let producerid = producer["id"];
+
+			$.ajax({type: "POST",
+				url: "./addNews.php",
+				data: {
+					title: title,
+					text: text,
+					date: date,
+					producerid: producerid,
+					cathegory: cathegory
+				},
+				async: false,
+				success: function(result) {
+					// console.log("result", result);
+					success = $.parseJSON(result);
+					console.log("addNews: success=", success);
+
+					if (success) {
+						alert("News added!");
+						getNews(false, false);
+					}
+					else {
+						alert("Error occured when adding news...");
+					}
+				}
+			});
+		}
+
+		function updateNews() {
+			let title = $("#newsTitle").val();
+			let text = $("#newsText").val();
+			let date = $("#newsDate").val();
+			let cathegory = $("#newsCathegory").val();
+			let producerid = $("#newsProducer").val();
+
+			if (selectedNewsId == null) {
+				alert("No news selected for update...");
+				return;
+			}
+
+			$.ajax({type: "POST",
+				url: "./updateNews.php",
+				data: {
+					id: selectedNewsId,
+					title: title,
+					text: text,
+					date: date,
+					producerid: producerid,
+					cathegory: cathegory
+				},
+				async: false,
+				success: function(result) {
+					success = $.parseJSON(result);
+					console.log("updateNews: success=", success);
+
+					if (success) {
+						alert("News updated!");
+						getNews(false, false);
+					}
+					else {
+						alert("Error occured when adding news...");
+					}
+				}
+			});
+		}
+
+
+		function getProducers() {
+			$.ajax({type: "POST",
+				url: "./getProducers.php",
+				data: {},
+				async: false,
+				success: function(result) {
+					producers = $.parseJSON(result);
+					console.log("producers=", producers);
+				}
+			});
+
+			showProducers();
+		};
+
+		function showProducers() {
+			let text = "";
+
+			for(let id in producers) {
+				let producer = producers[id];
+
+				text += "<option value=\"" + producer["id"] + "\">" + 
+				 		producer["name"] + 
+						"</option>";
+			}
+
+			$("#newsProducer").html(text);
+		}
+
+
+		function login() {
+			let name = $("#producerName").val();
+			let password = $("#producerPassword").val();
+
+			console.log("producerName=", name);
+			console.log("producerPassword=", password);
+
+			if (!name) {
+				alert("No producer name entered...");
+				return;
+			}
+
+			$.ajax({
+				type: "POST",
+				url: "./login.php",
+				data: {
+					name: name,
+					password: password
+				},
+				async: false,
+				success: function(result) {
+					producer = $.parseJSON(result);
+
+					if (producer == null) {
+						alert("Invalid producer credentials...");
+						return;
+					}
+
+					$("#loginSection").hide();
+					$("#producerSection").show();
+					$("#producerMessage").html("<h3>Welcome " + producer["name"] + "!");
+				}
+			});
+
+			if (producers == null) {
+				getProducers();
+			}
+		};
+
+		function logout() {
+			$("#loginSection").show();
+			$("#producerSection").hide();
+
+			producer = null;
+		};
+	</script>
+</body>
+</html>

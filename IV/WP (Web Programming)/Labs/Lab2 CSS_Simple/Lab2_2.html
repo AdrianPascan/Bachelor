@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<!--
+	Write a web page which contains 4 divs one inside each other (the first div contains inside it all the other 3 divs,
+	the second div contains inside 2 divs, and the third div contains the smallest div inside it). Each div is colored 
+	(background color) with different colors. When the mouse is over the inner div (i.e. the smallest one), all divs 
+	should change their colors.
+-->
+
+<html>
+	<head>
+		<title>Lab. 2: CSS Simple</title>
+		<style type="text/css">
+
+			#fourthDiv{
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+                height: 100%;
+				background-color: coral;
+				pointer-events: none;
+			}
+			#thirdDiv{
+				width: 50%;
+                height: 50%;
+				top: 25%;
+				margin: 0 auto;
+				position: relative;
+				background-color: crimson;
+				pointer-events: none;
+			}
+			#secondDiv{
+				width: 50%;
+                height: 50%;
+				top: 25%;
+				margin: 0 auto;
+				position: relative;
+				background-color: grey;
+				pointer-events: none;
+			}
+			#firstDiv{
+				width: 50%;
+                height: 50%;
+				top: 25%;
+				margin: 0 auto;
+				position: relative;
+				background-color: black;
+				pointer-events: auto;
+			}
+
+
+			#fourthDiv:hover{
+				background-color: black;
+			}
+
+			#thirdDiv:hover{
+				background-color: grey;
+			}
+
+			#secondDiv:hover {
+				background-color: crimson;
+			}
+
+			#firstDiv:hover {
+				background-color: coral;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div id="fourthDiv">
+			<div id="thirdDiv">
+				<div id="secondDiv">
+					<div id="firstDiv">
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

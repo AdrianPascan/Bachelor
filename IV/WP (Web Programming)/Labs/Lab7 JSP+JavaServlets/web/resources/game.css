@@ -1,0 +1,22 @@
+table {
+}
+
+td {
+    color: crimson;
+    background-color: white;
+    height: 2cm;
+    width: 2cm;
+    vertical-align: center;
+    horiz-align: center;
+    text-align: center;
+}
+
+.obstacle {
+    color: white;
+    background-color: coral;
+}
+
+td:hover {
+    color: white;
+    background-color: crimson;
+}

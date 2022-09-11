@@ -1,0 +1,24 @@
+﻿td {
+    padding-right: 1cm;
+}
+
+tr:hover {
+    background-color: whitesmoke;
+}
+
+.book {
+}
+
+.selectedBook {
+    background-color: lightslategray;
+    color: white;
+}
+
+
+.cartItem {
+}
+
+.selectedCartItem {
+    background-color: lightslategray;
+    color: white;
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<!--
+  Write a web page which contains a div with a background image.
+  When the mouse is over the div, the div should flip (turn over 
+  in 3D space; rotate around the OY axis in 3D).
+-->
+
+<html>
+	<head>
+		<title>Lab. 2: CSS Simple</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<style type="text/css">
+
+			#myDiv{
+				margin: auto;
+				width: 500px;
+                height: 500px;
+				background-image: url(https://lh3.googleusercontent.com/proxy/qkYMN6qyPYU41b6y1ZwyM8JMUNs-JIGHybEffRMAenIkJgEdcbXR3yQNhdFjOy7t8FRIoaMUvNGbNaLnxBS60UEhcQg82Y1tvyh6OLYRD6fWO6TmX8iUcOOsFjEJdB1efR-B0cm0FGGN);
+				background-repeat: no-repeat;
+				background-position: center;
+				transition: transform 2s;
+			}
+            #myDiv:hover{
+				transform: rotateY(180deg);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="myDiv"></div>
+	</body>
+</html>

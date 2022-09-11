@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<!--
+    Develop an html+css web document that looks like the following web page: 
+        https://www.udemy.com/the-web-developer-bootcamp/
+    You should clone about one screen of this web page (not the whole web page) 
+    and your html document should look approximately 90% as the given web page. 
+    No interactivity should be added (e.g. javascript, :hover effects etc.) and 
+    you are not allowed to use any css or javascript library.
+-->
+
+<html>
+    <head>
+        <title>Lab. 3: CSS Layouts</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+        <style>
+            html, body {
+                left: 0;
+                right: 0;
+                padding: 0;
+                margin: 0;
+            }
+
+
+            /* HEADER */
+
+            .header {
+                width: 100%;
+                height: 15%;
+            }
+
+            .headerContainer {
+                height: inherit;
+                width: inherit;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+            }
+
+            .headerLogo {
+                height: 1cm;
+                width: 10%;
+            }
+
+            .headerDiv {
+                font-family: 'Open Sans';
+                color: grey;
+                height: inherit;
+            }
+
+            .headerLine {
+                height: 1cm;
+                width: 1px;
+                background-color: lightgrey;
+            }
+
+            .headerSearch {
+                padding-left: 10px;
+                padding-right: 10px;
+                background-color: rgb(220, 220, 220);
+                height: 1cm;
+                width: 35%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .headerText {
+                color: grey;
+                font-family: 'Open Sans';
+            }
+
+            .headerDivider {
+                width: inherit;
+                height: 3px;
+                background-color: rgb(200, 200, 200);
+            }
+
+
+            /* BUTTONS */
+
+            .whiteButton {
+                border-style: solid;
+                border-color: black;
+                border-width: 1px;
+                background-color: white;
+                font-family: 'Open Sans';
+                color: grey;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-left: 10px;
+                padding-right: 10px;
+                height: 1cm;
+            }
+
+            .redButton {
+                border-style: solid;
+                border-color: red;
+                border-width: 1px;
+                background-color: red;
+                font-family: 'Open Sans';
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-left: 10px;
+                padding-right: 10px;
+                height: 1cm;
+            }
+
+
+            /* GENERAL CONTAINERS */
+
+            .container {
+                height: 100%;
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+            }
+
+
+            /* NAVIGATION BAR */ 
+
+            .navigationContainer {
+                height: 1cm;
+                padding-left: 13%;
+                padding-right: 13%;
+                background-color: rgb(240, 240, 240);
+                display: flex;
+                align-items: center;
+                font-family: 'Open Sans';
+                color: grey;
+                white-space: pre;
+            }
+
+            /* INTRODUCTION BAR */
+
+            .introduction {
+                background-color: rgb(30, 30, 45);
+                height: 7cm;
+                padding-left: 13%;
+                padding-right: 13%;
+                padding-top: 10px;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .introductionContainer {
+                height: inherit;
+                padding-right: 20%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .introductionContainerText {
+                font-family: 'Open Sans';
+                color: white;
+            }
+
+            /*WHAT YOU'LL LEARN CONTAINER */
+
+            .learnContainer {
+                padding-left: 13%;
+                padding-right: 40%;
+                padding-top: 1cm;
+            }
+
+            .learnBox {
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 10px;
+                border-style: solid;
+                border-color: rgb(220, 220, 220);
+                border-width: 1px;
+                background-color: rgb(240, 240, 240);
+                font-family: 'Open Sans';
+            }
+            
+            .learnColumns {
+                column-count: 2;
+                column-fill: balance;
+            }
+
+            .learnList {
+                list-style: '✓   ';
+                list-style-position: outside;
+            }
+
+            .learnItem {
+                margin-bottom: 15px;
+                font-size: 13pt;
+            }
+
+
+            /* BUY AREA */
+
+            .buy {
+                position: absolute;
+                right: 13%;
+                top: 5cm;
+                width: 23%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                border-style: solid;
+                border-width: 1px;
+                border-color: rgb(240, 240, 240);
+                background-color: white;
+                font-family: 'Open Sans';
+                color: rgb(12, 12, 12);
+            }
+
+            .buyContainer {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                width: 80%;
+            }
+
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <div class="headerContainer">
+                <img class="headerLogo" src="https://www.udemy.com/staticx/udemy/images/v6/logo-coral.svg">
+                <div class="headerDiv">
+                    <i class="fas fa-th"></i>
+                    Categories
+                </div>
+                <div class="headerSearch">
+                    <div class="headerText">
+                        Search for anything
+                    </div>
+                    <div class="headerText" style="color: red;">
+                        <i class="fas fa-search" style="font-size: 12pt;"></i>
+                    </div>
+                </div>
+                <div class="headerDiv">
+                    Udemy for Bussiness
+                </div>
+                <div class="headerDiv">
+                    Teach on Udemy
+                </div>
+                <div class="headerLine">
+                </div>
+                <div class="headerDiv">
+                    <i class="fas fa-shopping-cart" style="font-size: 15pt;"></i>
+                </div>
+                <div class="container">
+                    <div class="whiteButton">
+                        Log In
+                    </div>
+                    <div style="width: 5px;">
+                    </div>
+                    <div class="redButton">
+                        Sign Up
+                    </div>
+                </div>
+            </div>
+            <div class="headerDivider">
+            </div>
+        </header>
+        <div class="navigationContainer"><b>Development</b>  >  Web Development</div>
+        <div class="introduction">
+            <div class="introductionContainer">
+                <div class="introductionContainerText">
+                    <h1>
+                        The Web Developer Bootcamp
+                    </h1>
+                    <h2>
+                        The only course you need to learn web development - HTML, CSS, JS, Node, and More!
+                    </h2>
+                    <div class="container">
+                        <div>
+                            <i class="fas fa-star" style="color: gold;"></i>
+                            <i class="fas fa-star" style="color: gold;"></i>
+                            <i class="fas fa-star" style="color: gold;"></i>
+                            <i class="fas fa-star" style="color: gold;"></i>
+                            <i class="fas fa-star-half-alt" style="color: gold;"></i>
+                            4.6 (160,598 ratings)
+                        </div>
+                        <div>
+                            537,420 students enrolled
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div>
+                            Created by Colt Steele
+                        </div>
+                        <div>
+                            Last updated 4/2020
+                        </div>
+                        <div>
+                            <i class="fas fa-comment"></i>
+                            English
+                        </div>
+                        <div>
+                            <i class="far fa-closed-captioning"></i>
+                            English, Dutch, <u>12 more</u>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="height: 7cm; display: flex; align-items: flex-start;">
+                <div class="introductionContainerText" style="width: max-content; padding-right: 10px; font-size: 13pt; align-items: center;">
+                    <i class="fa fa-gift" style="font-size: 26pt;"></i> Gift This Course
+                </div>
+                <div class="introductionContainerText" style="width: max-content; font-size: 13pt; align-items: center;">
+                    <i class="far fa-heart" style="font-size: 26pt;"></i> Whishlist
+                </div>
+            </div>
+        </div>
+        <div class="learnContainer">
+            <div class="learnBox">
+                <h2>
+                    What you'll learn
+                </h2>
+                <div class="learnColumns">
+                    <ul class="learnList">
+                        <li class="learnItem">
+                            Make REAL web applications using cutting-edge technologies
+                        </li>
+                        <li class="learnItem">
+                            Create a blog application from scratch using Express, MongoDB, and Semantic UI
+                        </li>
+                        <li class="learnItem">
+                            Write your own browser-based game
+                        </li>
+                        <li class="learnItem">
+                            Think like a developer. Become an expert at Googling code questions!
+                        </li>
+                        <li class="learnItem">
+                            Continue to learn and grow as a developer, long after the course ends
+                        </li>
+                        <li class="learnItem">
+                            Create a complicated yelp-like application from scratch
+                        </li>
+                        <li class="learnItem">
+                            Create static HTML and CSS portfolio sites and landing pages
+                        </li>
+                        <li class="learnItem">
+                            Create complex HTML forms with validations
+                        </li>
+                    </ul>
+                </div>
+                <div style="color: steelblue;">
+                    See more
+                </div>
+            </div>
+        </div>
+        <div class="buy">
+            <img src="capture.png" alt="Video Preview" style="width: 100%;">
+            <div class="container">
+                <div style="padding-right: 5px">
+                    <h1>€11.99</h1>
+                </div>
+                <div style="padding-right: 5px">
+                    <strike>€199.99</strike>
+                </div>
+                <div>94% off</div>
+            </div>
+            <div class="buyContainer">
+                <div style="font-size: 10pt; color: red; padding-bottom: 10px;">
+                    <i class="fas fa-stopwatch"></i>
+                    <b>3 days</b> left at this price!
+                </div>
+                <div class="redButton" style="width:100%; padding-top: 10px; padding-bottom: 10px;">
+                    Add to cart
+                </div>
+                <div style="height: 10px">
+                </div>
+                <div class="whiteButton" style="width:100%; padding-top: 10px; padding-bottom: 10px;">
+                    Buy now
+                </div>
+                <div style="height: 10px">
+                </div>
+                <div style="width: 100%; justify-content: center; font-size: 10pt;">
+                    30-Day Money-Back Guarantee
+                </div>
+                <div style="height: 10px">
+                </div>
+                <div>
+                    This course includes:
+                    <div style="font-size: 10pt; padding-bottom: 4px;">
+                        <i class="fab fa-youtube"></i>
+                        46.5 hours on-demand video
+                    </div>
+                    <div style="font-size: 10pt; padding-bottom: 4px;">
+                        <i class="far fa-file"></i>
+                        81 articles
+                    </div>
+                    <div style="font-size: 10pt; padding-bottom: 4px;">
+                        <i class="far fa-file-alt"></i>
+                        104 downloadable resources
+                    </div>
+                    <div style="font-size: 10pt; padding-bottom: 4px;">
+                        <i class="fas fa-infinity"></i>
+                        Full lifetime access
+                    </div>
+                    <div style="font-size: 10pt; padding-bottom: 4px;">
+                        <i class="fas fa-mobile-alt"></i>
+                        Access on mobile and TV
+                    </div>
+                    <div style="font-size: 10pt; padding-bottom: 4px;">
+                        <i class="fas fa-atom"></i>
+                        Certificate of Completion
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

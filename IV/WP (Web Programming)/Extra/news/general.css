@@ -1,0 +1,9 @@
+div.newsItem:hover {
+	background-color: whitesmoke;
+	color: rgb(50, 50, 50);
+}
+
+div.newsSelectedItem {
+	background-color: lightslategray;
+	color: white;
+}

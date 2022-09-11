@@ -1,0 +1,30 @@
+Write a web application in ASP.NET which uses the following 2 database tables:
+- table Persons: id (int), name (string), age (int), gender (string: male or female)
+- table Channels: id (int), ownerid(int), name (string), description (string), subscribers (string)
+
+The 'subscribers' field of a record from the Channels table contains a list of persons
+who are subscribed to that channel along with the date each subscriber subscribed to the
+channel. The user should be able to specify his/her username in a text field when starting
+to use the application. The user should be able to see all channels owned by a person (the person
+is specified by his/her name; the owner of the channel) - display all fields of each channel. 
+The user should also be able to see all the channels he/she is subscribed to (display only 
+'name' and 'description' for each channel). The user should also be able to subscribe 
+himself/herself to an existing channel (you don't need to check if this channel exists, 
+you can assume it exists). If he/she is already subscribed to this channel, only the date 
+of his/her subscription should be updated in the 'subscribers' field of that channel.
+
+Grading scale:
+- 1 point by default (oficiu)
+- configure web environment, create DB, display all channels owned by a person     : 2
+- display all channels current user is subscribed to                               : 3
+  (check if the user name appears in the 'subscriber' field of a channel)
+- subscribe the user to a channel                                                  : 4
+  (check if user name is subscribed to this channel, if not, add it to subscribers; 
+  if he/she is subscribed, update the date of subscription for this user)
+
+You are not allowed to use any other DB tables except the ones specified above.
+---------------------------------------------------------------------------------------
+The server-side technology (PHP or JSP or ASP.NET) is not at your choice, it is 
+fixed by the exam subject. However, you can change this technology to another 
+one of your preference, but in this case the final grade that you receive will 
+be cut at 6 (i.e. the maximum grade that you can get for this practical exam is 6).

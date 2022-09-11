@@ -1,0 +1,58 @@
+html, body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    font-family: Calibri;
+    color: white;
+}
+
+header {
+    background-color: coral;
+    padding: 1%;
+    height: 8%;
+    width: 98%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+main {
+    background-color: wheat;
+    color: crimson;
+    padding: 1%;
+    height: 88%;
+    width: 98%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+button, input[type=submit] {
+    background-color: coral;
+    color: white;
+    padding: 10px;
+    height: 1cm;
+    border: none;
+    border-radius: 10px;
+}
+
+input {
+    color: crimson;
+    border-color: coral;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 15px;
+    padding: 5px;
+    margin-bottom: 2px;
+}
+input::placeholder {
+    color: coral;
+}

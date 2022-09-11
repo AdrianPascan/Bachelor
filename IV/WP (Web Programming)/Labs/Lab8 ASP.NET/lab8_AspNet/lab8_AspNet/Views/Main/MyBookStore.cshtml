@@ -1,0 +1,407 @@
+﻿@{
+    ViewBag.Title = "MyBookStore";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>My BookStore</title>
+
+    <link href="~/Styles/general.css" rel="stylesheet" type="text/css" />"
+
+    <script src="~/Scripts/jquery-3.5.0.min.js"></script>
+    <script>
+        var books = null;
+        var selectedBook = -1;
+        var cartItems = null; 
+        var selectedCartItem = -1;
+        var currentPage = 0;
+        var booksOnPage = 4;
+
+        function showPage(page) {
+            var table = "<p><i>BOOKS:</i><br></p>" +
+                "<table><theader><th>ID</th><th>Title</th><th>Author</th><th>Cathegory</th><th>Price</th></thead>";
+
+            for (var currentBook = page * booksOnPage; currentBook < books.length && currentBook < (page + 1) * booksOnPage; currentBook++) {
+                var book = books[currentBook];
+                table += "<tr id=\"" + book["id"] + "\" class=\"book\">" +
+                    "<td>" + book["id"] + "</td>" +
+                    "<td>" + book["title"] + "</td>" +
+                    "<td>" + book["author"] + "</td>" +
+                    "<td>" + book["cathegory"] + "</td>" +
+                    "<td>" + book["price"] + "</td>" +
+                    "</tr>";
+            }
+            table += "</table>";
+
+            selectedBook = -1;
+
+            $("#books").html(table);
+        }
+
+        function showPreviousPage() {
+            currentPage -= 1;
+            showPage(currentPage);
+
+            if (currentPage == 0) {
+                $("#previousBtn").prop("disabled", true);
+            }
+            $("#nextBtn").prop("disabled", false);
+        }
+
+        function showNextPage() {
+            currentPage += 1;
+            showPage(currentPage);
+
+            if ((currentPage + 1) * booksOnPage >= books.length) {
+                $("#nextBtn").prop("disabled", true);
+            }
+            $("#previousBtn").prop("disabled", false);
+        }
+            
+        function getBooks() {
+            $.post("/Main/GetBooksFilteredByCathegory",
+                { cathegory: $("#cathegory").val() },
+                function (result, status) {
+                    books = result;
+
+                    if (books.length == 0) {
+                        $("#books").html("<p><i>There are no books matching your cathegory...</i></p>");
+                    } else {
+                        showPage(0);
+                        currentPage = 0;
+
+                        if (books.length <= booksOnPage) {
+                            $("#nextBtn").prop("disabled", true);    
+                        } else {
+                            $("#nextBtn").prop("disabled", false);
+                        }
+                        $("#previousBtn").prop("disabled", true);
+                    }
+                }
+            )
+        };
+
+
+
+        function showCart() {
+            var table = "<p><i>YOUR CART:</i><br></p>" +
+                "<table><theader><th>Book ID</th><th>Quantity</th></thead>";
+
+            for (var cartItem of cartItems) {
+                table += "<tr id=\"" + cartItem["id"] + "\" class=\"cartItem\">" +
+                    "<td>" + cartItem["bookId"] + "</td>" +
+                    "<td>" + cartItem["quantity"] + "</td>" +
+                    "</tr>";
+            }
+            table += "</table>";
+
+            selectedCartItem = -1;
+
+            $("#cart").html(table);
+        }
+
+        function getCartItems() {
+            $.post("/Main/GetCartItems",
+                {},
+                function (result, status) {
+                    cartItems = result;
+
+                    if (cartItems.length == 0) {
+                        $("#cart").html("<p><i>Your cart is empty...</i></p>");
+                    } else {
+                        showCart();
+                    }
+                }
+            )
+        };
+
+        function addToCart() {
+            if (selectedBook == -1) {
+                alert("Please select a book..");
+                return;
+            }
+
+            if (!$("#quantity").val()) {
+                alert("Please insert a quantity..")
+                return;
+            }
+
+            quantity = parseInt($("#quantity").val());
+            console.log(quantity);
+            if (isNaN(quantity)) {
+                alert("Quantity is not a valid number..");
+                return;
+            }
+            if (quantity <= 0) {
+                alert("Quantity must be positive..");
+                return;
+            }
+
+            $.post("/Main/AddCartItem",
+                {
+                    id: selectedBook,
+                    quantity: quantity
+                },
+                function (result, status) {
+                    alert(quantity + " book(s) with id=" + selectedBook + " was(were) added to the cart.");
+                }
+            )
+
+            setTimeout(function () { getCartItems(); }, 1000);
+        }
+
+        function deleteFromCart() {
+            if (selectedCartItem == -1) {
+                alert("Please select a cart item..");
+                return;
+            }
+
+            $.post("/Main/DeleteCartItem",
+                { id: selectedCartItem },
+                function (result, status) {
+                    alert("Book with id=" + selectedCartItem + " was deleted from the cart.");
+                }
+            )
+
+            setTimeout(function () { getCartItems(); }, 1000);
+        }
+
+        function emptyCart() {
+            $.post("/Main/EmptyCart",
+                {},
+                function (result, status) {
+                    console.log("emptyCart");
+                }
+            )
+
+            $("#cart").html("<p><i>Your cart is empty...</i></p>");
+        }
+
+
+
+        var userName = null;
+        var userId = null;
+        var startTime = null;
+        var sessionTime = null;
+
+        function login() {
+            name = $("#name").val();
+            password = $("#password").val();
+
+            if (!name) {
+                alert("Username missing..");
+                return;
+            }
+            if (!password) {
+                alert("Password missing..");
+                return;
+            }
+
+            $.post("/Main/AuthenticateUser",
+                {
+                    name: name,
+                    password: password
+                },
+                function (result, status) {
+                    id = result;
+
+                    if (id == -1) {
+                        alert("Invalid username and password combination!");
+                        return;
+                    }
+
+                    userName = name;
+                    userId = id;
+                    startTime = (new Date()).getSeconds();
+                    sessionTime = null;
+
+                    $("#username").html(userName);
+                    $("#login").hide();
+                    $("#bookstore").show();
+
+                    emptyCart();
+
+                    console.log("userId", userId);
+                }
+            )
+            
+        }
+
+        function logout() {
+            sessionTime = (new Date()).getSeconds() - startTime;
+            $.post("/Main/AddSession",
+                {
+                    id: userId,
+                    start: startTime,
+                    time: sessionTime
+                },
+                function (result, status) {
+                    console.log("addSession");
+                }
+            )
+
+            $("#name").val("");
+            $("#password").val("");
+            mustLogin();
+        }
+
+        function mustLogin() {
+            $("#login").show();
+            $("#bookstore").hide();
+        }
+
+
+
+        $(document).ready(function () {
+            mustLogin();
+            getBooks();
+
+            $("#loginBtn").on("click", function () {
+                login();
+            });
+
+            $("#logoutBtn").on("click", function () {
+                logout();
+            });
+
+            $("#filterBtn").on("click", function() {
+                getBooks();
+            });
+
+            $("#previousBtn").on("click", function() {
+                showPreviousPage();
+            });
+
+            $("#nextBtn").on("click", function() {
+                showNextPage();
+            });
+
+            $("#addBtn").on("click", function() {
+                addToCart();
+            });
+
+            $("#deleteBtn").on("click", function() {
+                deleteFromCart();
+            });
+
+
+            // selectBook
+            $(document).on("click", ".book", function () {
+                if (selectedBook != -1) {
+                    $("#" + selectedBook + ".selectedBook")
+                        .removeClass("selectedBook")
+                        .addClass("book");
+                }
+                selectedBook = parseInt($(this).attr("id"));
+                $(this)
+                    .removeClass("book")
+                    .addClass("selectedBook");
+                console.log("selectedBook", selectedBook);
+            });
+
+
+            // selectCartItem
+            $(document).on("click", ".cartItem", function () {
+                if (selectedCartItem != -1) {
+                    $("#" + selectedCartItem + ".selectedCartItem")
+                        .removeClass("selectedCartItem")
+                        .addClass("cartItem");
+                }
+                selectedCartItem = parseInt($(this).attr("id"));
+                $(this)
+                    .removeClass("cartItem")
+                    .addClass("selectedCartItem");
+                console.log("selectedCartItem", selectedCartItem);
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div>
+            <p>
+                <h1>Welcome to MyBookStore</h1>
+            </p>
+        </div>
+    </header>
+
+    <hr>
+
+    <main>
+        <div id="login">
+            <form>
+                Username:
+                <input id="name" type="text">
+                <br />
+
+                Password:
+                <input id="password" type="password">
+                <br />
+                <br />
+
+                <input id="loginBtn" type="button" value="Log In">
+                <br />
+            </form>
+        </div>
+
+        <div id="bookstore">
+            <div>
+                <h3>USER</h3>
+                <div id="username">USER</div>
+                <br />
+
+                <input id="logoutBtn" type="button" value="Log Out">
+                <br />
+            </div>
+
+            <hr />
+
+            <div>
+                <h3>BOOK STORE</h3>
+                <br />
+
+                <form>
+                    Cathegory:
+                    <input id="cathegory" type="text">
+                    <input id="filterBtn" type="button" value="Filter">
+                </form>
+                <br>
+
+                <div id="books">
+                </div>
+                <br>
+
+                <input id="previousBtn" type="button" value="Previous page">
+                <input id="nextBtn" type="button" value="Next page">
+            </div>
+
+            <br>
+            <hr>
+
+            <div>
+                <h3>CART</h3>
+                <br>
+
+                <form>
+                    Quantity:
+                    <input id="quantity" type="text">
+                    <input id="addBtn" type="button" value="Add">
+                </form>
+                <br>
+
+                <form>
+                    <input id="deleteBtn" type="button" value="Delete">
+                </form>
+                <br>
+                <br>
+
+                <div id="cart">
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
