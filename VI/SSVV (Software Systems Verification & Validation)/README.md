@@ -1,0 +1,1 @@
+Note: Every task, including the exam, was done in collaboration with a team member.
