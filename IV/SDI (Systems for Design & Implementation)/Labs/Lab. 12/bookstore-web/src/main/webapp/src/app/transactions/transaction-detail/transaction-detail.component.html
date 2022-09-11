@@ -1,0 +1,34 @@
+<!--<p>transaction-detail works!</p>-->
+
+<div *ngIf="transaction">
+  <h2>Transaction details</h2>
+  <div>
+    <label>Customer - First name: </label> {{transaction.customer.firstName}}
+  </div>
+  <div>
+    <label>Customer - Last Name: </label> {{transaction.customer.lastName}}
+  </div>
+  <div>
+    <label>Customer - Age: </label> {{transaction.customer.age}}
+  </div>
+  <div>
+    <label>Book - ISBN: </label> {{transaction.book.isbn}}
+  </div>
+  <div>
+    <label>Book - Title: </label> {{transaction.book.title}}
+  </div>
+  <div>
+    <label>Book - Author: </label> {{transaction.book.author}}
+  </div>
+  <div>
+    <label>Book - Price: </label> {{transaction.book.price}}
+  </div>
+
+  <div>
+    <label>Quantity: </label> {{transaction.quantity}}
+    <input [(ngModel)]="transaction.quantity" placeholder="quantity">
+  </div>
+  <button (click)="goBack()">Back</button>
+  |
+  <button (click)="save()">Save</button>
+</div>

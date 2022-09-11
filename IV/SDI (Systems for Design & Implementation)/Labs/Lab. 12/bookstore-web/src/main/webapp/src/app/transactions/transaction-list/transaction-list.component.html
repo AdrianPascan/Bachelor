@@ -1,0 +1,24 @@
+<div *ngIf="selectedTransaction">
+  <h2>
+    Transaction
+    CUSTOMER {{selectedTransaction.customer.firstName}} {{selectedTransaction.customer.lastName}}
+    BOUGHT BOOK '{{selectedTransaction.book.title}}' ({{selectedTransaction.book.author}})
+    was selected
+  </h2>
+  <button (click)="gotoDetail()">View Details</button>
+</div>
+
+<h2>Transactions</h2>
+<ol class="transactions">
+  <li *ngFor="let transaction of transactions"
+      [class.selected]="transaction === selectedTransaction"
+      (click)="onSelect(transaction)">
+    Customer <b>{{transaction.customer.firstName}} {{transaction.customer.lastName}}</b> bought book <b>'{{transaction.book.title}}' ({{transaction.book.author}})</b>.
+
+    <button
+      [class.delete]="true"
+      (click)="deleteTransaction(transaction);$event.stopPropagation()">
+      delete
+    </button>
+  </li>
+</ol>

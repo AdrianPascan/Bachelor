@@ -1,0 +1,20 @@
+<!--<p>customer-detail works!</p>-->
+
+<div *ngIf="customer">
+  <h2>Customer details</h2>
+  <div>
+    <label>First Name: </label> {{customer.firstName}}
+    <input [(ngModel)]="customer.firstName" placeholder="firstName">
+  </div>
+  <div>
+    <label>Last Name: </label> {{customer.lastName}}
+    <input [(ngModel)]="customer.lastName" placeholder="lastName">
+  </div>
+  <div>
+    <label>Age: </label> {{customer.age}}
+    <input [(ngModel)]="customer.age" placeholder="age">
+  </div>
+  <button (click)="goBack()">Back</button>
+  |
+  <button (click)="save()">Save</button>
+</div>

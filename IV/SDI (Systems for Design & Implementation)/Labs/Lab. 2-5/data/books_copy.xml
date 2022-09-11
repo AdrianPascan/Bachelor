@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<books>
+    <book id="1">
+        <isbn>0-7475-3269-9</isbn>
+        <title>Harry Potter</title>
+        <author>J.K. Rowling</author>
+        <publishingHouse>Bloomsbury</publishingHouse>
+        <year>1997</year>
+        <price>29.99</price>
+    </book>
+    <book id="2">
+        <isbn>9-7808-1298-1605</isbn>
+        <title>The Power of Habit</title>
+        <author>Charles Duhigg</author>
+        <publishingHouse>Random House</publishingHouse>
+        <year>2012</year>
+        <price>34.99</price>
+    </book>
+    <book id="3">
+        <isbn>1-2222-3333-4444</isbn>
+        <title>War and Peace</title>
+        <author>Lev Tolstoi</author>
+        <publishingHouse>Art</publishingHouse>
+        <year>2018</year>
+        <price>21.99</price>
+    </book>
+</books>

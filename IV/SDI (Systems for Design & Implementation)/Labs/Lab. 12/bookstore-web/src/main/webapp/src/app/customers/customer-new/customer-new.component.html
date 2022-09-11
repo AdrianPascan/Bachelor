@@ -1,0 +1,24 @@
+<!--<p>customer-new works!</p>-->
+
+<br>
+
+<label>First Name:
+  <input #firstName/>
+  <br/>
+</label>
+
+<label>Last Name:
+  <input #lastName/>
+  <br/>
+</label>
+
+<label>Age:
+  <input #age/>
+  <br/>
+</label>
+
+<br>
+
+<button (click)="saveCustomer(firstName.value, lastName.value, age.value)">
+  Save Customer
+</button>

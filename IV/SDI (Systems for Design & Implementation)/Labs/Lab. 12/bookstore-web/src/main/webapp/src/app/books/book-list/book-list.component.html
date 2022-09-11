@@ -1,0 +1,21 @@
+<div *ngIf="selectedBook">
+  <h2>
+    '{{selectedBook.title | uppercase}}' was selected
+  </h2>
+  <button (click)="gotoDetail()">View Details</button>
+</div>
+
+<h2>Books</h2>
+<ol class="books">
+  <li *ngFor="let book of books"
+      [class.selected]="book === selectedBook"
+      (click)="onSelect(book)">
+    <b>'{{book.title}}'</b> ({{book.author}})
+
+    <button
+      [class.delete]="true"
+      (click)="deleteBook(book);$event.stopPropagation()">
+      delete
+    </button>
+  </li>
+</ol>

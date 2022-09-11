@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Measurement</th>
+    <th>Time</th>
+  </thead>
+
+  <tr *ngFor="let sensor of sensors">
+    <td>{{sensor.id}}</td>
+    <td>{{sensor.name}}</td>
+    <td>{{sensor.measurement}}</td>
+    <td>{{sensor.time}}</td>
+  </tr>
+</table>
+<!--<li *ngFor="let sensor of sensors">-->
+<!--  Sensor {{sensor.name}}: id={{sensor.id}}, measurement={{sensor.measurement}}, time={{sensor.time}}-->
+<!--</li>-->

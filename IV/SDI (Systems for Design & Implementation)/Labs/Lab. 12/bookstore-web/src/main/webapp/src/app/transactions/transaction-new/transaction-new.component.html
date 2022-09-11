@@ -1,0 +1,33 @@
+<!--<p>transaction-new works!</p>-->
+
+<h2>Customers</h2>
+<ol class="customers">
+  <li *ngFor="let customer of customers"
+      [class.selected]="customer === selectedCustomer"
+      (click)="onSelectCustomer(customer)">
+    {{customer.firstName}} {{customer.lastName}}
+  </li>
+</ol>
+
+<h2>Books</h2>
+<ol class="books">
+  <li *ngFor="let book of books"
+      [class.selected]="book === selectedBook"
+      (click)="onSelectBook(book)">
+    <b>'{{book.title}}'</b> ({{book.author}})
+  </li>
+</ol>
+
+<h2>Transaction Details</h2>
+<label>Quantity:
+  <input #quantity/>
+  <br/>
+</label>
+
+<br>
+
+<button (click)="saveTransaction(quantity.value)">
+  Save Transaction
+</button>
+
+

@@ -1,0 +1,7 @@
+<h3>Books</h3>
+
+<ol>
+  <li *ngFor="let book of books['books']">
+    {{book.isbn}}: <b><i>'{{book.title}}'</i>, {{book.author}}</b> ({{book.publishingHouse}}, {{book.year}}) - {{book.price}}
+  </li>
+</ol>

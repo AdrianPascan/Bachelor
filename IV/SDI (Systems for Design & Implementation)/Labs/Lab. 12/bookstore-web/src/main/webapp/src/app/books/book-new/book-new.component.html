@@ -1,0 +1,31 @@
+<!--<p>book-new works!</p>-->
+
+<br>
+
+<label>ISBN:
+  <input #isbn/>
+  <br/>
+</label>
+
+<label>Title:
+  <input #title/>
+  <br/>
+</label>
+
+<label>Author:
+  <input #author/>
+  <br/>
+</label>
+
+<label>Price:
+  <input #price/>
+  <br/>
+</label>
+
+<br>
+
+<button (click)="saveBook(isbn.value, title.value, author.value, price.value)">
+  Save Book
+</button>
+
+

@@ -1,0 +1,21 @@
+<div *ngIf="selectedCustomer">
+  <h2>
+    {{selectedCustomer.firstName | uppercase}} {{selectedCustomer.lastName | uppercase}} was selected
+  </h2>
+  <button (click)="gotoDetail()">View Details</button>
+</div>
+
+<h2>Customers</h2>
+<ol class="customers">
+  <li *ngFor="let customer of customers"
+      [class.selected]="customer === selectedCustomer"
+      (click)="onSelect(customer)">
+    {{customer.firstName}} {{customer.lastName}}
+
+    <button
+      [class.delete]="true"
+      (click)="deleteCustomer(customer);$event.stopPropagation()">
+      delete
+    </button>
+  </li>
+</ol>

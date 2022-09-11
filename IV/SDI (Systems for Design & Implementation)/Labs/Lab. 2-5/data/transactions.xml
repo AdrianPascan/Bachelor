@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<transactions>
+    <transaction id="1">
+        <customerId>1</customerId>
+        <bookId>1</bookId>
+    </transaction>
+    <transaction id="2">
+        <customerId>1</customerId>
+        <bookId>2</bookId>
+    </transaction>
+    <transaction id="3">
+        <customerId>2</customerId>
+        <bookId>1</bookId>
+    </transaction>
+</transactions>

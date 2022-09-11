@@ -1,0 +1,9 @@
+dependencies {
+//    compile project(':monitor-core')
+    compile project(':monitor-web')
+
+    compile group: 'org.springframework', name: 'spring-web', version: "$springVersion"
+
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "$jacksonDatabindVersion"
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "$jacksonDatabindVersion"
+}

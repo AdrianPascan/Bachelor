@@ -1,0 +1,5 @@
+rootProject.name = 'lab_7_rmi'
+include 'server'
+include 'client'
+include 'common'
+

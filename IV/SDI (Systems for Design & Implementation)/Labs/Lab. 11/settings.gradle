@@ -1,0 +1,4 @@
+rootProject.name = 'lab_11_angular'
+include 'bookstore-client'
+include 'bookstore-web'
+include 'bookstore-core'
