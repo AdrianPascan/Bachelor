@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <startup>
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.7.2" />
+  </startup>
+  <appSettings>
+    <add key="connectionString" value="Data Source = DESKTOP-JC39FI8\SQLEXPRESS; Initial Catalog=ClothingStore; Integrated Security=True"/>
+    <add key="parentTable" value="Client"/>
+    <add key="childTable" value="ClientOrders"/>
+    <add key="relationName" value="FK__ClientOrder__Cid__4D94879B"/>
+    <add key="relationParentAttributeName" value="Cid"/>
+    <add key="relationChildAttributeName" value="Cid"/>
+  </appSettings>
+</configuration>
