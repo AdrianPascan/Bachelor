@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GUIClass</class>
+ <widget class="QMainWindow" name="GUIClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>921</width>
+    <height>689</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>GUI</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item>
+     <widget class="QStackedWidget" name="mainStackedWidget">
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="administratorStackedWidgetPage">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <layout class="QHBoxLayout" name="administratorHorizontalLayout">
+          <item>
+           <layout class="QVBoxLayout" name="administratorVerticalLayout">
+            <item>
+             <widget class="QListWidget" name="administratorDogsListWidget"/>
+            </item>
+            <item>
+             <layout class="QFormLayout" name="administratorDogFormLayout">
+              <item row="0" column="0">
+               <widget class="QLabel" name="administratorNameLabel">
+                <property name="text">
+                 <string>Name: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="administratorNameLineEdit"/>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="administratorBreedLabel">
+                <property name="text">
+                 <string>Breed: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="administratorBreedLineEdit"/>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="administratorBirthDateLabel">
+                <property name="text">
+                 <string>Birth date: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLineEdit" name="administratorBirthDateLineEdit"/>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="administratorVaccinationsNumberLabel">
+                <property name="text">
+                 <string>Number of vaccinations: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QLineEdit" name="administratorVaccinationsNumberLineEdit"/>
+              </item>
+              <item row="4" column="0">
+               <widget class="QLabel" name="administratorPhotographLabel">
+                <property name="text">
+                 <string>Photograph: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QLineEdit" name="administratorPhotographLineEdit"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="administratorPushButtonsHorizontalLayout">
+              <item>
+               <widget class="QPushButton" name="administratorAddPushButton">
+                <property name="text">
+                 <string>Add</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="administratorUpdatePushButton">
+                <property name="text">
+                 <string>Update</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="administratorDeletePushButton">
+                <property name="text">
+                 <string>Delete</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="administratorFilePathHorizontalLayout">
+              <item>
+               <widget class="QLineEdit" name="administratorFilePathLineEdit"/>
+              </item>
+              <item>
+               <widget class="QPushButton" name="administratorSetFilePathPushButton">
+                <property name="text">
+                 <string>Set file path</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QPushButton" name="administratorUserModePushButton">
+            <property name="text">
+             <string>USER MODE</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="userStackedWidgetPage">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <layout class="QHBoxLayout" name="userHorizontalLayout">
+          <item>
+           <layout class="QVBoxLayout" name="userVerticalLayout">
+            <item>
+             <layout class="QVBoxLayout" name="userMatchingDogsVerticalLayout">
+              <item>
+               <widget class="QLabel" name="userMatchingDogsLabel">
+                <property name="text">
+                 <string>MATCHING DOGS: </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QListWidget" name="userMatchingDogsListWidget"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="userNextHorizontalLayout">
+              <item>
+               <widget class="QLineEdit" name="userNextLineEdit"/>
+              </item>
+              <item>
+               <widget class="QPushButton" name="userNextPushButton">
+                <property name="text">
+                 <string>Next</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="userFilterVerticalLayout">
+              <item>
+               <layout class="QFormLayout" name="userFilterFormLayout">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="userBreedLabel">
+                  <property name="text">
+                   <string>Breed: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLineEdit" name="userBreedLineEdit"/>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="userVaccinationsNumberLabel">
+                  <property name="text">
+                   <string>Number of vaccinations: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLineEdit" name="userVaccinationsNumberLineEdit"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QPushButton" name="userFilterPushButton">
+                <property name="text">
+                 <string>Filter</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="userSavedDogsVerticalLayout">
+                <item>
+                 <widget class="QLabel" name="userSavedDogsLabel">
+                  <property name="text">
+                   <string>SAVED DOGS: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QListWidget" name="userSavedDogsListWidget"/>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="userSaveHorizontalLayout">
+              <item>
+               <widget class="QLabel" name="userNameLabel">
+                <property name="text">
+                 <string>Name: </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="userNameLineEdit"/>
+              </item>
+              <item>
+               <widget class="QPushButton" name="userSavePushButton">
+                <property name="text">
+                 <string>Save</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="userFilePathVerticalLayout">
+              <item>
+               <layout class="QHBoxLayout" name="userSetFilePathHorizontalLayout">
+                <item>
+                 <widget class="QLineEdit" name="userFilePathLineEdit"/>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="userSetFilePathPushButton">
+                  <property name="text">
+                   <string>Set file path</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QPushButton" name="userOpenFilePushButton">
+                <property name="text">
+                 <string>Open file</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QPushButton" name="userAdministratorModePushButton">
+            <property name="text">
+             <string>ADMINISTRATOR MODE</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="GUI.qrc"/>
+ </resources>
+ <connections/>
+</ui>

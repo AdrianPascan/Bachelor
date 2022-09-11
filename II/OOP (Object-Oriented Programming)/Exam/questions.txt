@@ -1,0 +1,4 @@
+2,Boiling temperature of water (degrees C)?,100,4
+1,Capital of Russia?,Moscow,3
+5,Famous Balenciaga chunky sneakers?,TripleS,4
+8,Capital of UK?,London,5

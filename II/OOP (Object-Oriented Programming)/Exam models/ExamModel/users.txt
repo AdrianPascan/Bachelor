@@ -1,0 +1,4 @@
+Adrian,tester
+Dragos,programmer
+Anamaria,programmer
+Cecilia,tester

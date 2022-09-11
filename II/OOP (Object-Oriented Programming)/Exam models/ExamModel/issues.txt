@@ -1,0 +1,6 @@
+bug2,open,Cecilia, 
+bug6,open,Adrian, 
+bug7,open,Cecilia, 
+bug1,closed,Cecilia,Dragos
+bug3,closed,Cecilia,Anamaria
+bug4,closed,Adrian,Dragos

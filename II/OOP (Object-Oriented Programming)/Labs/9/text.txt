@@ -1,0 +1,2 @@
+Oscar,pitbull,15-05-2018,3,oscar.jpg
+Ben,pitbull,02-05-2018,4,ben.jpg
