@@ -1,0 +1,13 @@
+We want a distributed program that computes the convolution of two vectors of equal length, that is, it computes
+a vector r with r[k] equal to the sum of all a[i]*b[k-i] for i from 0 to the length of the vectors minus one.
+
+You shall implement two functions (in C++, Java or C\#):
+
+vector<int> primes(vector<int> const& a, vector<int> const& b, int nrProcs);
+
+that will run on the process 0 of the MPI_COMM_WORLD communicator, where a and b are the input vectors (assumed of equal length) and nrProcs is the
+number of processes in the world communicator.
+
+void worker(int myId, int nrProcs);
+
+will run on all other processesin the world communicator, with myId representing the rank and nrProcs the number of processes.
