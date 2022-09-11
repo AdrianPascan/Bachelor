@@ -1,0 +1,2 @@
+Type environment:
+a ---> Bool

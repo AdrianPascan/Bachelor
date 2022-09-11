@@ -1,0 +1,3 @@
+Type environment:
+a ---> Reference(Reference(Integer))
+v ---> Reference(Integer)

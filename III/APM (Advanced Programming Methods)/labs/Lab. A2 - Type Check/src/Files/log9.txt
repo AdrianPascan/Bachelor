@@ -1,0 +1,241 @@
+PROGRAM STATE 9
+Execution stack:
+(Reference(Integer) v;(new(v, 20);(Reference(Reference(Integer)) a;(new(a, v);(new(v, 30);print(rH(rH(a))))))))
+Symbol table:
+Output:
+File table:
+Heap:
+
+PROGRAM STATE 9
+Execution stack:
+Reference(Integer) v
+(new(v, 20);(Reference(Reference(Integer)) a;(new(a, v);(new(v, 30);print(rH(rH(a)))))))
+Symbol table:
+Output:
+File table:
+Heap:
+
+PROGRAM STATE 9
+Execution stack:
+Reference(Integer) v
+(new(v, 20);(Reference(Reference(Integer)) a;(new(a, v);(new(v, 30);print(rH(rH(a)))))))
+Symbol table:
+Output:
+File table:
+Heap:
+
+PROGRAM STATE 9
+Execution stack:
+(new(v, 20);(Reference(Reference(Integer)) a;(new(a, v);(new(v, 30);print(rH(rH(a)))))))
+Symbol table:
+v ---> (0, Integer)
+Output:
+File table:
+Heap:
+
+PROGRAM STATE 9
+Execution stack:
+(new(v, 20);(Reference(Reference(Integer)) a;(new(a, v);(new(v, 30);print(rH(rH(a)))))))
+Symbol table:
+v ---> (0, Integer)
+Output:
+File table:
+Heap:
+
+PROGRAM STATE 9
+Execution stack:
+new(v, 20)
+(Reference(Reference(Integer)) a;(new(a, v);(new(v, 30);print(rH(rH(a))))))
+Symbol table:
+v ---> (0, Integer)
+Output:
+File table:
+Heap:
+
+PROGRAM STATE 9
+Execution stack:
+new(v, 20)
+(Reference(Reference(Integer)) a;(new(a, v);(new(v, 30);print(rH(rH(a))))))
+Symbol table:
+v ---> (0, Integer)
+Output:
+File table:
+Heap:
+
+PROGRAM STATE 9
+Execution stack:
+(Reference(Reference(Integer)) a;(new(a, v);(new(v, 30);print(rH(rH(a))))))
+Symbol table:
+v ---> (1, Integer)
+Output:
+File table:
+Heap:
+1 ---> 20
+
+PROGRAM STATE 9
+Execution stack:
+(Reference(Reference(Integer)) a;(new(a, v);(new(v, 30);print(rH(rH(a))))))
+Symbol table:
+v ---> (1, Integer)
+Output:
+File table:
+Heap:
+1 ---> 20
+
+PROGRAM STATE 9
+Execution stack:
+Reference(Reference(Integer)) a
+(new(a, v);(new(v, 30);print(rH(rH(a)))))
+Symbol table:
+v ---> (1, Integer)
+Output:
+File table:
+Heap:
+1 ---> 20
+
+PROGRAM STATE 9
+Execution stack:
+Reference(Reference(Integer)) a
+(new(a, v);(new(v, 30);print(rH(rH(a)))))
+Symbol table:
+v ---> (1, Integer)
+Output:
+File table:
+Heap:
+1 ---> 20
+
+PROGRAM STATE 9
+Execution stack:
+(new(a, v);(new(v, 30);print(rH(rH(a)))))
+Symbol table:
+a ---> (0, Reference(Integer))
+v ---> (1, Integer)
+Output:
+File table:
+Heap:
+1 ---> 20
+
+PROGRAM STATE 9
+Execution stack:
+(new(a, v);(new(v, 30);print(rH(rH(a)))))
+Symbol table:
+a ---> (0, Reference(Integer))
+v ---> (1, Integer)
+Output:
+File table:
+Heap:
+1 ---> 20
+
+PROGRAM STATE 9
+Execution stack:
+new(a, v)
+(new(v, 30);print(rH(rH(a))))
+Symbol table:
+a ---> (0, Reference(Integer))
+v ---> (1, Integer)
+Output:
+File table:
+Heap:
+1 ---> 20
+
+PROGRAM STATE 9
+Execution stack:
+new(a, v)
+(new(v, 30);print(rH(rH(a))))
+Symbol table:
+a ---> (0, Reference(Integer))
+v ---> (1, Integer)
+Output:
+File table:
+Heap:
+1 ---> 20
+
+PROGRAM STATE 9
+Execution stack:
+(new(v, 30);print(rH(rH(a))))
+Symbol table:
+a ---> (2, Reference(Integer))
+v ---> (1, Integer)
+Output:
+File table:
+Heap:
+1 ---> 20
+2 ---> (1, Integer)
+
+PROGRAM STATE 9
+Execution stack:
+(new(v, 30);print(rH(rH(a))))
+Symbol table:
+a ---> (2, Reference(Integer))
+v ---> (1, Integer)
+Output:
+File table:
+Heap:
+1 ---> 20
+2 ---> (1, Integer)
+
+PROGRAM STATE 9
+Execution stack:
+new(v, 30)
+print(rH(rH(a)))
+Symbol table:
+a ---> (2, Reference(Integer))
+v ---> (1, Integer)
+Output:
+File table:
+Heap:
+1 ---> 20
+2 ---> (1, Integer)
+
+PROGRAM STATE 9
+Execution stack:
+new(v, 30)
+print(rH(rH(a)))
+Symbol table:
+a ---> (2, Reference(Integer))
+v ---> (1, Integer)
+Output:
+File table:
+Heap:
+1 ---> 20
+2 ---> (1, Integer)
+
+PROGRAM STATE 9
+Execution stack:
+print(rH(rH(a)))
+Symbol table:
+a ---> (2, Reference(Integer))
+v ---> (3, Integer)
+Output:
+File table:
+Heap:
+1 ---> 20
+2 ---> (1, Integer)
+3 ---> 30
+
+PROGRAM STATE 9
+Execution stack:
+print(rH(rH(a)))
+Symbol table:
+a ---> (2, Reference(Integer))
+v ---> (3, Integer)
+Output:
+File table:
+Heap:
+1 ---> 20
+2 ---> (1, Integer)
+3 ---> 30
+
+PROGRAM STATE 9
+Execution stack:
+Symbol table:
+a ---> (2, Reference(Integer))
+v ---> (3, Integer)
+Output:
+20
+File table:
+Heap:
+1 ---> 20
+2 ---> (1, Integer)
+3 ---> 30
+

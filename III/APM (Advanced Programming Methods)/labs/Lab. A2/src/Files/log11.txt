@@ -1,0 +1,3 @@
+Type environment:
+a ---> Reference(Integer)
+v ---> Integer

@@ -1,0 +1,3 @@
+Type environment:
+varf ---> String
+varc ---> Integer

@@ -1,0 +1,5 @@
+Type environment:
+q ---> Integer
+x ---> Integer
+v1 ---> Reference(Integer)
+v2 ---> Reference(Integer)
