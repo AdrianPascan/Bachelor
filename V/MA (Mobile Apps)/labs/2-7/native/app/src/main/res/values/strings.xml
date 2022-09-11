@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PASCÁNI footwear</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="cart_button">Cart</string>
+    <string name="main_label">Products</string>
+    <string name="cart_label">Your Cart</string>
+    <string name="quantity_label">Quantity:</string>
+    <string name="cart_item_remove_button">Remove from Cart</string>
+    <string name="cart_item_update_button">Update Quantity</string>
+</resources>

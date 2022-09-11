@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:srcCompat="@mipmap/ic_launcher"
+                    android:id="@+id/cartItemImage"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+            <TextView
+                    android:text="BRAND"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cartItemBrandTextView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintStart_toEndOf="@+id/cartItemImage"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+            <TextView
+                    android:text="DESCRIPTION"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cartItemDescriptionTextView"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintTop_toBottomOf="@+id/cartItemBrandTextView"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintStart_toStartOf="@+id/cartItemBrandTextView"/>
+
+            <TextView
+                    android:text="PRICE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cartItemPriceTextView"
+                    app:layout_constraintBottom_toBottomOf="@+id/cartItemImage"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:layout_constraintStart_toStartOf="@+id/cartItemBrandTextView"
+                    android:layout_marginBottom="8dp"/>
+
+            <TextView
+                    android:text="@string/quantity_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cartItemQuantityTextView"
+                    app:layout_constraintEnd_toStartOf="@+id/cartItemQuantityEditText"
+                    app:layout_constraintBottom_toBottomOf="@+id/cartItemQuantityEditText"
+                    android:layout_marginBottom="8dp"/>
+
+            <EditText
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:text="quantity"
+                    android:ems="10"
+                    android:id="@+id/cartItemQuantityEditText"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:layout_constraintEnd_toStartOf="@+id/cartItemUpdateButton"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/cartItemImage"/>
+
+            <TextView
+                    android:text="SUBTOTAL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp"
+                    android:id="@+id/cartItemSubtotalTextView"
+                    app:layout_constraintEnd_toEndOf="@+id/cartItemUpdateButton"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintTop_toBottomOf="@+id/cartItemUpdateButton"/>
+
+            <Button
+                    android:text="@string/cart_item_remove_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cartItemRemoveButton"
+                    app:layout_constraintTop_toBottomOf="@+id/cartItemSubtotalTextView"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:layout_constraintEnd_toEndOf="@+id/cartItemUpdateButton"
+                    />
+
+            <Button
+                    android:text="@string/cart_item_update_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cartItemUpdateButton"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintTop_toTopOf="@+id/cartItemQuantityEditText"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
