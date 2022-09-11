@@ -1,0 +1,20 @@
+% Write a predicate to remove the first three occurrences of an element
+% in a list. If the element occurs less than three times, all
+% occurrences will be removed.
+
+
+%(i,i,i,o)
+%removeFirstN(L-list, E-integer, Nr-integer, R-list)
+removeFirstN([],_,_,[]).
+removeFirstN([H|T],_,0,[H|T]):- !.
+removeFirstN([H|T],E,Nr,R):- E=H, !,
+	Nr1 is Nr-1, removeFirstN(T,E,Nr1,R).
+removeFirstN([H|T],E,Nr,R):- E\=H, !,
+	removeFirstN(T,E,Nr,R1), R=[H|R1].
+
+
+%(i,i,o)
+%removeFirst3(L-list, E-integer, R-list)
+removeFirst3([],_,[]).
+removeFirst3([H|T],E,R):- removeFirstN([H|T],E,3,R).
+

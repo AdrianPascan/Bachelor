@@ -1,0 +1,63 @@
+% a. Given a linear numerical list write a predicate to remove all
+% sequences of consecutive values.
+% Eg.: remove([1, 2, 4, 6, 7, 8, 10], L) will produce L=[4, 10].
+
+
+%removeConsecutives(l1 l2 .. ln) = removeConsec(l1 l2 .. ln, 0, 0)
+
+%removeConsecutives(L: list, R: list)
+%(i,o)
+removeConsecutives([H|T],R):- !, removeConsec([H|T],0,_,R).
+removeConsecutives([],[]).
+
+
+%removeConsec(l1 l2..ln, flag, last) = {
+% [], n = 0
+% removeConsec(l2..ln, 1, l2), l2 = l1 + 1
+% removeConsec(l2..ln, 0, last), l2 != l1 + 1
+% }
+
+%removeConsec(L: List, Flag: Integer, Last: Integer, R:list)
+%(i,i,i,o)
+removeConsec([],_,_,[]):- !.
+
+removeConsec([H1,H2|T],0,_,R):- Aux is H1+1, Aux=:=H2, !,
+	removeConsec(T,1,H2,R).
+
+removeConsec([H1,H2|T],0,_,R):- Aux is H1+1, Aux=\=H2, !,
+	removeConsec([H2|T],0,_,R2),
+	R = [H1|R2].
+
+removeConsec([H|T],1,Last,R):- Aux is Last+1, Aux=:=H, !,
+	removeConsec(T,1,H,R).
+
+removeConsec([H|T],1,Last,R):- Aux is Last+1, Aux=\=H, !,
+	removeConsec(T,0,_,R2),
+	R=[H|R2].
+
+removeConsec([E],0,_,[E]):- !.
+
+
+
+% b. For a heterogeneous list, formed from integer numbers and list of
+% numbers; write a predicate to delete from every sublist all sequences
+% of consecutive values.
+
+% removeConsecInSublist(l1 .. ln) = {
+% [], n = 0
+% l1 U removeConsecInSublist(l2 .. ln), l1 is number
+% (r1 .. rm) U removeConsecInSublist(l2 .. ln) , l1 is list,
+%                          r1 .. rm = removeConsecutives(l1)
+% }
+
+% removeConsecInSublist(L: list, R: list)
+% (i,o)
+
+removeConsecInSublist([],[]):- !.
+removeConsecInSublist([H|T],R):- number(H), !,
+	removeConsecInSublist(T,R2),
+	R=[H|R2].
+removeConsecInSublist([H|T],R):- is_list(H), !,
+	removeConsecutives(H,R2),
+	removeConsecInSublist(T,R3),
+	R=[R2|R3].
