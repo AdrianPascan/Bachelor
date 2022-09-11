@@ -1,0 +1,12 @@
+program head decl_list instructions final declaration type name instruction read print attrib whileloop ifstat aatrib expression final
+330 1000 801 802 221 224 330 334 0 116 1 224 445 226 e
+program
+head: 330 1000 801 802 221
+decl_list: declaration 224 decl_list
+declaration: type name
+type: 330 | 334
+name: 0 | 0 116 1 224
+instructions: instruction 224 instructions | e
+instruction: read | print | attrib | whileloop | ifstat
+attrib: 0 116 expression
+final: 445 1 224 226

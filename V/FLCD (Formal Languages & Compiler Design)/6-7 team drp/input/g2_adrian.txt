@@ -1,0 +1,22 @@
+program,type,relation,operand,operator,size,statementList,statement,simpleStatement,structuredStatement,declaration,io,assignment,expression,condition,return,if,for
+-1,0,2,3,4,5,6,7,10,11,12,13,14,20,21,22,30,31,40,41,42,43,44,45,46,50,51,52,53,54,55
+program
+
+program: 30 2 43 44 41 statementList 42
+type: 30 | 31
+relation: 10 | 11 | 12 | 13 | 14
+operand: -1 | 0 | -1 45 -1 46 | -1 45 0 46
+operator: 50 | 51 | 52 | 53 | 54 | 55
+size: 0
+statementList: statement | statement statementList
+statement: simpleStatement 40 | structuredStatement
+simpleStatement: declaration | io | assignment | condition | return
+declaration: type -1 | type -1 55 0 | type -1 45 size 46 | type -1 45 size 46 55 0
+io: 4 -1 | 4 -1 45 -1 46 | 4 -1 45 0 46 | 5 -1 | 5 0 | 5 -1 45 -1 46 | 5 -1 45 0 46 |
+assignment: -1 55 expression
+expression: operand operator operand | -1 | 0
+condition: operand relation operand | expression relation expression | operand relation expression | expression relation operand
+return: 3 0
+structuredStatement: if | for
+if: 20 43 condition 44 41 statementList 42
+for: 22 43 assignment 40 condition 40 assignment 44 41 statementList 42

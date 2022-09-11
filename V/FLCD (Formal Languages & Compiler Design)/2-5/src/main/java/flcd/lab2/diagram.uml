@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="761.0" y="332.0">flcd.lab2.PIF.PIFEntry</node>
+    <node x="367.0" y="737.0">flcd.lab2.symbolTable.IdentifierSymbolTable</node>
+    <node x="748.0" y="684.0">flcd.lab2.PIF.PIF</node>
+    <node x="275.75" y="211.0">flcd.lab2.hashTable.HashTableImpl</node>
+    <node x="291.5" y="945.0">flcd.lab2.scanner.LexicalAnalyser</node>
+    <node x="580.0" y="705.0">flcd.lab2.scanner.LAEntry</node>
+    <node x="391.0" y="1352.0">flcd.lab2.Main</node>
+    <node x="289.37499999999994" y="0.0">flcd.lab2.hashTable.HashTable</node>
+    <node x="168.0" y="737.0">flcd.lab2.symbolTable.ConstantSymbolTable</node>
+    <node x="0.0" y="748.0">flcd.lab2.scanner.LexicalError</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="flcd.lab2.symbolTable.ConstantSymbolTable" target="flcd.lab2.hashTable.HashTableImpl">
+      <point x="44.75" y="-37.5" />
+      <point x="302.25" y="659.0" />
+      <point x="317.25" y="659.0" />
+      <point x="-41.5" y="211.5" />
+    </edge>
+    <edge source="flcd.lab2.scanner.LexicalAnalyser" target="flcd.lab2.symbolTable.IdentifierSymbolTable">
+      <point x="-17.19999999999999" y="-178.5" />
+      <point x="446.29999999999995" y="885.0" />
+      <point x="415.25" y="885.0" />
+      <point x="-48.25" y="37.5" />
+    </edge>
+    <edge source="flcd.lab2.symbolTable.IdentifierSymbolTable" target="flcd.lab2.hashTable.HashTableImpl">
+      <point x="-48.25" y="-37.5" />
+      <point x="415.25" y="659.0" />
+      <point x="400.25" y="659.0" />
+      <point x="41.5" y="211.5" />
+    </edge>
+    <edge source="flcd.lab2.scanner.LexicalAnalyser" target="flcd.lab2.symbolTable.ConstantSymbolTable">
+      <point x="-51.599999999999966" y="-178.5" />
+      <point x="411.9" y="895.0" />
+      <point x="302.25" y="895.0" />
+      <point x="44.75" y="37.5" />
+    </edge>
+    <edge source="flcd.lab2.symbolTable.ConstantSymbolTable" target="flcd.lab2.hashTable.HashTable">
+      <point x="-44.75" y="-37.5" />
+      <point x="212.75" y="659.0" />
+      <point x="231.5" y="659.0" />
+      <point x="231.5" y="186.0" />
+      <point x="312.87499999999994" y="186.0" />
+      <point x="-47.0" y="80.5" />
+    </edge>
+    <edge source="flcd.lab2.hashTable.HashTableImpl" target="flcd.lab2.hashTable.HashTable">
+      <point x="0.0" y="-211.5" />
+      <point x="358.75" y="186.0" />
+      <point x="359.87499999999994" y="186.0" />
+      <point x="0.0" y="80.5" />
+    </edge>
+    <edge source="flcd.lab2.PIF.PIF" target="flcd.lab2.PIF.PIFEntry">
+      <point x="44.0" y="-90.5" />
+      <point x="880.0" y="659.0" />
+      <point x="873.5" y="659.0" />
+      <point x="37.5" y="90.5" />
+    </edge>
+    <edge source="flcd.lab2.scanner.LexicalAnalyser" target="flcd.lab2.scanner.LAEntry">
+      <point x="51.60000000000002" y="-178.5" />
+      <point x="515.1" y="895.0" />
+      <point x="617.0" y="895.0" />
+      <point x="-37.0" y="69.5" />
+    </edge>
+    <edge source="flcd.lab2.scanner.LexicalAnalyser" target="flcd.lab2.PIF.PIF">
+      <point x="120.39999999999998" y="-178.5" />
+      <point x="583.9" y="915.0" />
+      <point x="792.0" y="915.0" />
+      <point x="-44.0" y="90.5" />
+    </edge>
+    <edge source="flcd.lab2.Main" target="flcd.lab2.scanner.LexicalAnalyser">
+      <point x="-36.25" y="-26.5" />
+      <point x="427.25" y="1327.0" />
+      <point x="377.5" y="1327.0" />
+      <point x="-86.0" y="178.5" />
+    </edge>
+    <edge source="flcd.lab2.scanner.LexicalAnalyser" target="flcd.lab2.scanner.LexicalError">
+      <point x="-154.7999999999999" y="-178.5" />
+      <point x="308.70000000000005" y="925.0" />
+      <point x="37.0" y="925.0" />
+      <point x="-37.0" y="26.5" />
+    </edge>
+    <edge source="flcd.lab2.symbolTable.IdentifierSymbolTable" target="flcd.lab2.hashTable.HashTable">
+      <point x="48.25" y="-37.5" />
+      <point x="511.75" y="659.0" />
+      <point x="489.5" y="659.0" />
+      <point x="489.5" y="186.0" />
+      <point x="406.87499999999994" y="186.0" />
+      <point x="47.0" y="80.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6217543859649123" x="462.0" y="702.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

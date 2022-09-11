@@ -1,0 +1,19 @@
+Identifier ST: 
+[
+	Hash Table: 
+	[
+		capacity= 11
+		noOfElements= 4
+		elements=[null, no, null, minimum, no2, no3, null, null, null, null, null]
+	]
+]
+
+Constant ST: 
+[
+	Hash Table: 
+	[
+		capacity= 11
+		noOfElements= 1
+		elements=[null, null, null, null, 0, null, null, null, null, null, null]
+	]
+]

@@ -1,0 +1,13 @@
+int main ( ) {
+	int count = 0 ;
+	int numbers [ 100 ] = 0 ;
+	int sum = 0 ;
+    int index = 0 ;
+	read count ;
+	for ( index = 0 ; index lessEqual count ; index = index + 1 ) {
+		read numbers [ index ] ;
+		sum = sum + numbers [ index ] ;
+	}
+	write sum ;
+    return 0 ;
+}

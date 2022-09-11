@@ -1,0 +1,22 @@
+int main ( )
+{
+	int no = 0 ;
+	int divisor = 0 ;
+	read no ;
+	if ( no lessThan 2 ) {
+		write 0 ;
+		return 0 ;
+    }
+	if ( no equals 2 ) {
+		write 1 ;
+        return 0 ;
+	}
+	for ( divisor = 3 ; divisor * divisor lessEqual no ; divisor = divisor + 2 ) {
+		if ( no % divisor equals 0 ) {
+			write 0 ;
+            return 0 ;
+		}
+	}
+	write 1 ;
+    return 0 ;
+}

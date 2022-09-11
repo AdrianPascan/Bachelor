@@ -1,0 +1,19 @@
+int main ( )
+{
+	int no = 0 ;
+	int no2 = 0 ;
+	int no3 = 0 ;
+	int 0minimum = 0 ;
+	read no ;
+	read no2 ;
+	read no3 ;
+	0minimum = no ;
+	if ( 0minimum lessThan no2 ) {
+		0minimum = no2 ;
+	}
+	if ( 0minimum lessThan no3 ) {
+		0minimum = no3 ;
+	}
+	write 0minimum ;
+	return 0 ;
+}
