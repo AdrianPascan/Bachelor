@@ -1,0 +1,7 @@
+1. Authenticate with no credentials
+2. Authenticate with invalid credentials
+3. Authenticate with username only
+4. Authenticate with empty user field & non-empty password field
+5. Username field disappearing when switching language
+6. Password field disappearing when switching language
+7. Username & password fields disappearing when switching language
